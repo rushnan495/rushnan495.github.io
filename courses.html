@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Courses — EDU SPORTS IT</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+body{
+  background:linear-gradient(-45deg,#0f172a,#1e293b,#0ea5a4,#38bdf8);
+  background-size:400% 400%;
+  animation:gradientMove 10s ease infinite;
+  color:#fff;overflow-x:hidden;
+}
+@keyframes gradientMove{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+/* Nav */
+nav{
+  position:fixed;top:0;left:0;width:100%;
+  background:rgba(15,23,42,0.95);
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 20px;z-index:1000;
+  backdrop-filter: blur(6px);
+}
+nav .logo{font-weight:700;font-size:22px;color:#38bdf8;display:flex;align-items:center;gap:8px;}
+nav .logo img{width:30px;height:30px;border-radius:50%;}
+nav .nav-links{display:flex;gap:20px;}
+nav .nav-links a{
+  color:#fff;text-decoration:none;font-weight:500;padding:8px 12px;border-radius:6px;transition:0.3s;
+}
+nav .nav-links a:hover{background:#38bdf8;color:#0f172a;}
+.menu-btn{display:none;color:#fff;font-size:30px;background:none;border:none;cursor:pointer;}
+
+/* Mobile Nav */
+@media(max-width:900px){
+  .menu-btn{display:block;}
+  .nav-links{
+    position:absolute;top:60px;right:20px;background:rgba(15,23,42,0.98);
+    flex-direction:column;width:200px;border-radius:8px;padding:0;max-height:0;overflow:hidden;
+    transition:max-height 0.3s ease,padding 0.3s ease;
+  }
+  .nav-links.active{max-height:500px;padding:15px;}
+  .nav-links a{display:block;padding:10px 15px;}
+}
+
+/* Courses */
+section.courses{padding:120px 30px;max-width:1200px;margin:auto;}
+h1{text-align:center;margin-bottom:50px;color:#38bdf8;}
+
+.course-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:25px;
+}
+.course-card{
+  background:rgba(255,255,255,0.1);
+  border-radius:12px;
+  padding:20px;
+  text-align:center;
+  transition:transform 0.3s ease, box-shadow 0.3s ease;
+}
+.course-card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 8px 16px rgba(0,0,0,0.3);
+}
+.course-card img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+  border-radius:8px;
+  margin-bottom:15px;
+}
+.course-card h3{color:#38bdf8;margin-bottom:10px;}
+.course-card p{color:#cbd5e1;font-size:15px;margin-bottom:15px;}
+.course-card button{
+  background:#38bdf8;
+  color:#0f172a;
+  border:none;
+  padding:10px 18px;
+  border-radius:6px;
+  cursor:pointer;
+  font-weight:600;
+  transition:0.3s;
+}
+.course-card button:hover{background:#0ea5a4;}
+
+/* Footer */
+footer{text-align:center;padding:25px;color:#94a3b8;margin-top:40px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">
+    <img src="edu-sports-it.png" alt="Logo">
+    <span>EDU SPORTS IT</span>
+  </div>
+  <button class="menu-btn" id="menuBtn">&#9776;</button>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html">Home</a>
+    <a href="courses.html">Courses</a>
+    <a href="about.html">About</a>
+    <a href="chat.html">World Chat</a>
+    <a href="help.html">Help Center</a>
+    <a href="review.html">Reviews</a>
+    <a href="login.html">Login</a>
+    <a href="signup.html">Sign-Up</a>
+    <a href="profile.html">Profile</a>
+  </div>
+</nav>
+
+<section class="courses">
+  <h1>Our Premium Courses</h1>
+  <div class="course-grid">
+    <div class="course-card">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0LX7EvUmCzbSxqQhao1neJWCBwAHLiopUag&s" alt="Graphics & Web Design">
+      <h3>Graphics + Web Design Course</h3>
+      <p>Learn full graphics & web design with hands-on projects and lifetime access.</p>
+      <button onclick="location.href='graphics-web.html'">Details</button>
+    </div>
+
+    <div class="course-card">
+      <img src="digital-market.jpeg" alt="Digital Marketing">
+      <h3>Digital Marketing Masterclass</h3>
+      <p>Master Facebook Ads, SEO, and online business growth strategies.</p>
+      <button onclick="location.href='marketing.html'">Details</button>
+    </div>
+
+    <div class="course-card">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREwCAEt0nid2os52ZevQXRHzWoXQOLsGGK8w&s" alt="Programming with Python">
+      <h3>Programming with Python</h3>
+      <p>Start from zero and build apps using Python — perfect for beginners.</p>
+      <button>Details</button>
+    </div>
+  </div>
+</section>
+
+<footer>© 2025 EDU SPORTS INFORMATION & TECHNOLOGY</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const menuBtn = document.getElementById('menuBtn');
+  const navLinks = document.getElementById('navLinks');
+
+  menuBtn.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+  });
+
+  document.querySelectorAll('.nav-links a').forEach(link=>{
+    link.addEventListener('click',()=>navLinks.classList.remove('active'));
+  });
+});
+</script>
+</body>
+</html>

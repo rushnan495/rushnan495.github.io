@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About | EDU SPORTS IT</title>
+<style>
+/* ---------- GLOBAL ---------- */
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+body{
+  background: linear-gradient(-45deg, #0f172a, #1e293b, #0ea5a4, #38bdf8);
+  background-size:400% 400%;
+  animation:gradientMove 10s ease infinite;
+  color:#fff;
+  overflow-x:hidden;
+}
+@keyframes gradientMove{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+/* ---------- NAVBAR ---------- */
+nav{
+  position:fixed;top:0;left:0;width:100%;
+  background:rgba(15,23,42,0.95);
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 20px;z-index:1000;
+  backdrop-filter:blur(6px);
+}
+.logo{
+  display:flex;align-items:center;font-weight:700;font-size:22px;color:#38bdf8;gap:10px;
+}
+.logo img{width:38px;height:38px;border-radius:50%;object-fit:cover;border:2px solid #38bdf8;}
+.nav-links{display:flex;gap:20px;}
+.nav-links a{
+  color:#fff;text-decoration:none;font-weight:500;
+  padding:8px 12px;border-radius:6px;transition:0.3s;
+}
+.nav-links a:hover,
+.nav-links a.active{background:#38bdf8;color:#0f172a;}
+.menu-btn{display:none;color:#fff;font-size:30px;background:none;border:none;cursor:pointer;}
+
+/* Mobile Navbar */
+@media(max-width:900px){
+  .menu-btn{display:block;}
+  .nav-links{
+    display:none;
+    flex-direction:column;
+    position:absolute;
+    top:60px;
+    right:20px;
+    background:rgba(15,23,42,0.98);
+    width:200px;
+    border-radius:8px;
+    padding:15px;
+    text-align:right;
+    z-index:1001;
+  }
+  .nav-links.active{display:flex;animation:slide 0.3s ease;}
+  @keyframes slide{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}
+}
+
+/* ---------- ABOUT SECTION ---------- */
+.about-section{text-align:center;padding:120px 20px 40px;}
+.about-section h1{font-size:3rem;color:#38bdf8;margin-bottom:20px;}
+.about-section p{
+  max-width:800px;margin:auto;font-size:1.2rem;color:#e2e8f0;line-height:1.6;
+}
+
+/* ---------- OWNER ---------- */
+.ownership{text-align:center;margin-top:60px;}
+.ownership h2{color:#38bdf8;font-size:2rem;margin-bottom:30px;}
+.owner-card{
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:15px;padding:30px 25px;
+  width:320px;margin:0 auto;text-align:center;
+  transition:transform 0.3s ease,box-shadow 0.3s;
+  backdrop-filter:blur(8px);
+}
+.owner-card:hover{
+  transform:translateY(-10px);
+  box-shadow:0 10px 25px rgba(56,189,248,0.25);
+}
+.owner-card img{
+  width:110px;height:110px;border-radius:50%;
+  border:2px solid #38bdf8;object-fit:cover;margin-bottom:15px;
+}
+.owner-card h3{color:#38bdf8;margin:8px 0;}
+.owner-card p{color:#e2e8f0;font-size:15px;margin-bottom:8px;}
+.owner-card .contact-info{
+  color:#94a3b8;font-size:13px;line-height:1.5;margin-top:10px;
+}
+.view-btn {
+  background:#38bdf8;color:#0f172a;border:none;padding:8px 15px;border-radius:8px;
+  cursor:pointer;font-weight:600;transition:0.3s;margin-top:10px;
+}
+.view-btn:hover{background:#0ea5a4;}
+
+/* ---------- VOLUNTEERS ---------- */
+.volunteers{text-align:center;margin-top:70px;}
+.volunteers h2{color:#38bdf8;font-size:2rem;margin-bottom:30px;}
+.volunteer-grid{
+  display:flex;justify-content:center;flex-wrap:wrap;
+  gap:30px;margin-top:20px;padding-bottom:60px;
+}
+.card{
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:15px;padding:25px;width:250px;text-align:center;
+  transition:transform 0.3s ease,box-shadow 0.3s;
+  backdrop-filter:blur(8px);
+}
+.card:hover{
+  transform:translateY(-10px);
+  box-shadow:0 10px 25px rgba(56,189,248,0.25);
+}
+.card img{
+  width:90px;height:90px;border-radius:50%;
+  border:2px solid #38bdf8;object-fit:cover;margin-bottom:15px;
+}
+.card h3{color:#38bdf8;margin:8px 0;}
+.card p{color:#e2e8f0;font-size:15px;margin-bottom:8px;}
+.card .contact-info{color:#94a3b8;font-size:13px;line-height:1.4;}
+
+/* ---------- MODAL ---------- */
+.modal {
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background:rgba(0,0,0,0.75);
+  display:flex;align-items:center;justify-content:center;
+  visibility:hidden;opacity:0;transition:0.3s;
+  z-index:2000;overflow-y:auto;padding:20px 0;
+}
+.modal.active{visibility:visible;opacity:1;}
+.modal-content{
+  background:rgba(15,23,42,0.95);
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:15px;padding:30px;
+  width:90%;max-width:500px;text-align:center;
+  color:#fff;backdrop-filter:blur(10px);
+  animation:pop 0.3s ease;position:relative;max-height:90vh;overflow-y:auto;
+}
+@keyframes pop{from{transform:scale(0.9);opacity:0;}to{transform:scale(1);opacity:1;}}
+.modal-content img{width:140px;height:140px;border-radius:50%;border:3px solid #38bdf8;object-fit:cover;margin-bottom:15px;}
+.close-btn{position:absolute;top:10px;right:15px;background:none;border:none;color:#fff;font-size:25px;cursor:pointer;}
+.modal-content h4{color:#38bdf8;margin-top:15px;margin-bottom:5px;}
+.modal-content ul{list-style:disc;padding-left:20px;margin:5px 0 10px;text-align:left;color:#e2e8f0;}
+.modal-content p{margin:8px 0;color:#e2e8f0;word-break:break-word;text-align:center;}
+
+footer{text-align:center;padding:25px;color:#94a3b8;margin-top:20px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">
+    <img src="edu-sports-it.png" alt="Logo">
+    <span>EDU SPORTS IT</span>
+  </div>
+  <button class="menu-btn" id="menuBtn">&#9776;</button>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html">Home</a>
+    <a href="courses.html">Courses</a>
+    <a href="about.html" class="active">About</a>
+    <a href="chat.html">World Chat</a>
+    <a href="help.html">Help Center</a>
+    <a href="review.html">Reviews</a>
+    <a href="login.html">Login</a>
+    <a href="signup.html">Sign-Up</a>
+    <a href="profile.html">Profile</a>
+  </div>
+</nav>
+
+<section class="about-section">
+  <h1>About EDU SPORTS IT</h1>
+  <p>
+    EDU SPORTS INFORMATION & TECHNOLOGY is a dynamic IT club dedicated to developing innovative solutions,
+    empowering young learners, and promoting teamwork through creativity and technology.
+  </p>
+</section>
+
+<section class="ownership">
+  <h2>Ownership</h2>
+  <div class="owner-card">
+    <img src="rushnan.jpg" alt="Rushnan Khan">
+    <h3>Rushnan Khan</h3>
+    <p>CEO & Leadership</p>
+    <div class="contact-info">
+      Web Developer, Graphics Designer & Marketing Expert<br>
+      Email: rushnankhan02@gmail.com<br>
+      WhatsApp: +880 1966090467<br>
+      Instagram: __introvert._.13__<br>
+      <button class="view-btn" id="ownerBtn">View Details</button>
+    </div>
+  </div>
+</section>
+
+<section class="volunteers">
+  <h2>Volunteers</h2>
+  <div class="volunteer-grid">
+    <div class="card" data-name="Mubarrat Hasan" data-role="Software Engineer" data-img="profile.svg">
+      <img src="profile.svg" alt="Volunteer">
+      <h3>Mubarrat Hasan</h3>
+      <p>Software Engineer</p>
+      <button class="view-btn">View Details</button>
+    </div>
+    <div class="card" data-name="Saadman Khan" data-role="Python Developer & Video Editing Expert" data-img="saadu.jpg">
+      <img src="saadu.jpg" alt="Volunteer">
+      <h3>Saadman Khan</h3>
+      <p>Python Developer & Video Editing Expert</p>
+      <button class="view-btn">View Details</button>
+    </div>
+    <div class="card" data-name="Sohan" data-role="Authority of Starzone" data-img="Screenshot 2025-10-11 164143.png">
+      <img src="Screenshot 2025-10-11 164143.png" alt="Sohan">
+      <h3>Sohan Siddik</h3>
+      <p>Authority of Starzone</p>
+      <button class="view-btn">View Details</button>
+    </div>
+    <div class="card" data-name="We are Finding" data-role="Looking for a Volunteer" data-img="data:image/png;base64,iVBOR...">
+      <img src="data:image/png;base64,iVBOR..." alt="Finding">
+      <h3>We are Finding</h3>
+      <p>We are finding a volunteer and if you want to join, contact with our owner!</p>
+      <button class="view-btn">View Details</button>
+    </div>
+  </div>
+</section>
+
+<footer>© 2025 EDU SPORTS INFORMATION & TECHNOLOGY</footer>
+
+<!-- Owner Modal -->
+<div class="modal" id="ownerModal">
+  <div class="modal-content">
+    <button class="close-btn" id="closeOwner">&times;</button>
+    <img src="rushnan.jpg" alt="Rushnan Khan">
+    <h3>Rushnan Khan</h3>
+    <p>CEO & Leadership</p>
+    <h4>--About Me--</h4>
+    <p>Hi, Guys my name is <strong>MD. Rushnan Khan</strong> in the charge of <strong>EDU SPORTS INFORMATION & TECHNOLOGY</strong>. I'm specially experienced as a freelancer about Web developer, Graphics Designer and Digital Marketing Expert. I become a part of 10 minute school, ACS Future School and HSC Crackers as an Affiliate Marketer.</p>
+    <h4>-Skills-</h4>
+    <ul>
+      <li>Web Development</li>
+      <li>Graphics Design</li>
+      <li>Digital Marketing</li>
+      <li>CPA/Affiliate Marketing</li>
+    </ul>
+    <h4>-Goals-</h4>
+    <p>I want to make this club in top level in Bangladesh. I want to introduce the students into the digital world.</p>
+    <h4>-Contact-</h4>
+    <p>Email: <span id="ownerEmail">rushnankhan02@gmail.com</span></p>
+    <p>WhatsApp: <span id="ownerWhatsapp">+880 1966090467</span></p>
+    <p>Instagram: <span id="ownerInsta">__introvert._.13__</span></p>
+  </div>
+</div>
+
+<!-- Volunteer Modal -->
+<div class="modal" id="modal">
+  <div class="modal-content" id="modalContent">
+    <button class="close-btn" id="closeBtn">&times;</button>
+    <img src="" id="modalImg" alt="Profile">
+    <h3 id="modalName"></h3>
+    <p id="modalRole" style="font-weight:600;margin-bottom:10px;"></p>
+    <div id="modalDesc" style="color:#cbd5e1;font-size:14px;margin-top:10px;line-height:1.6;"></div>
+  </div>
+</div>
+
+<script>
+// Mobile Menu
+const menuBtn=document.getElementById('menuBtn');
+const navLinks=document.getElementById('navLinks');
+menuBtn.addEventListener('click',()=>navLinks.classList.toggle('active'));
+
+// Volunteer Modal
+const modal=document.getElementById('modal');
+const closeBtn=document.getElementById('closeBtn');
+const modalImg=document.getElementById('modalImg');
+const modalName=document.getElementById('modalName');
+const modalRole=document.getElementById('modalRole');
+const modalDesc=document.getElementById('modalDesc');
+
+document.querySelectorAll('.volunteer-grid .view-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const card=btn.parentElement;
+    modalImg.src=card.dataset.img;
+    modalName.textContent=card.dataset.name;
+    modalRole.textContent=card.dataset.role;
+
+    if(card.dataset.name==="Mubarrat Hasan"){
+      modalDesc.innerHTML=`<strong>About:</strong><br>Hello and welcome — I’m Mubarrat Hasan, a student and systems-level software engineer passionate about exploring every layer of the computing stack.<br><br><strong>Skills:</strong><br>- Full-stack development<br>- Any programming<br><br><strong>Goals:</strong><br>My goal is to make software development a deeply understood craft, where developers grasp the core mechanics behind every abstraction they use. I aim to empower others to think beyond frameworks and truly understand how things work from the ground up.
+<br><br><strong>Contact:</strong><br>Website: <a href="https://mubarrat.com" target="_blank">mubarrat.com</a><br>Email: <span id="mubEmail" style="cursor:pointer;">contact@mubarrat.com</span>`;
+      document.getElementById('mubEmail').addEventListener('click',()=>{navigator.clipboard.writeText('contact@mubarrat.com');alert('contact@mubarrat.com copied');});
+    } 
+    else if(card.dataset.name==="Sohan"){
+      modalDesc.innerHTML=`<p>Hey there 👋 I’m Md. Sohan Siddik, founder and owner of 🌌(𝕊𝕋𝔸ℝℤ𝕆ℕ𝔼)🌌 — a growing digital community where passion, creativity, and competition meet.<br>
+From Discord and WhatsApp to Telegram and Instagram, STARZONE connects gamers, editors, and creators through tournaments, collaborations, and pure vibes. 🎮<br><br>
+I’m a YouTuber, Gamer, and Editor who loves bringing ideas to life through visuals and energy-packed edits.<br>
+I create cool, cinematic, and story-driven content, mixing creativity with a professional touch — every frame, every beat, every transition matters. 🎬<br><br>
+I also promote brands, events, and digital projects, helping others grow just like I’m building my own network.<br>
+What keeps me grounded is my passion for athletics — because discipline and drive don’t just live online, they start within. 💪<br><br>
+Every project I touch is more than content — it’s emotion, rhythm, and connection.<br>
+Welcome to my world — STARZONE — where passion turns into purpose, and creation never sleeps. 🌠<br><br>
+✨ Instagram: <span id="sohanInsta" style="cursor:pointer;">@pblsohan</span><br>
+🎥 YouTube: P.B.L.</p>`;
+      document.getElementById('sohanInsta').addEventListener('click',()=>{navigator.clipboard.writeText('@pblsohan');alert('@pblsohan copied');});
+    } 
+    else if(card.dataset.name==="Saadman Khan"){
+      modalDesc.innerHTML=`<p><strong>About Me:</strong><br>
+I’m Saadman Khan, a student passionate about technology and creativity. I focus mainly on Python programming for Data Science and Machine Learning, exploring how data can be used to solve real-world problems. Alongside coding, I enjoy video editing, where I bring ideas to life through visuals. I’m always learning and pushing myself to combine both logic and creativity in everything I do.<br><br>
+<strong>My Skills:</strong><br>- Python Programming (Data Science & Machine Learning)<br>- Video Editing<br><br>
+<strong>Goals:</strong><br>To become skilled in Data Science and Machine Learning, and to create meaningful projects that combine data, technology, and creativity.<br><br>
+<strong>Contacts:</strong><br>Discord: saadman_404<br>WhatsApp: +8801327801220<br>Email: <span id="saadEmail" style="cursor:pointer;">msaadman56@proton.me</span></p>`;
+      document.getElementById('saadEmail').addEventListener('click',()=>{navigator.clipboard.writeText('msaadman56@proton.me');alert('msaadman56@proton.me copied');});
+    } 
+    else if(card.dataset.name==="We are Finding"){
+      modalDesc.innerHTML=`We are finding a volunteer and if you want to join, contact with our owner!`;
+    }
+    modal.classList.add('active');
+  });
+});
+
+
+closeBtn.addEventListener('click',()=>modal.classList.remove('active'));
+window.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('active');});
+
+// Owner Modal
+const ownerBtn=document.getElementById('ownerBtn');
+const ownerModal=document.getElementById('ownerModal');
+const closeOwner=document.getElementById('closeOwner');
+
+ownerBtn.addEventListener('click',()=>ownerModal.classList.add('active'));
+closeOwner.addEventListener('click',()=>ownerModal.classList.remove('active'));
+window.addEventListener('click',e=>{if(e.target===ownerModal)ownerModal.classList.remove('active');});
+
+// Copy owner contact
+['ownerEmail','ownerWhatsapp','ownerInsta'].forEach(id=>{
+  const el=document.getElementById(id);
+  el.style.cursor='pointer';
+  el.title='Click to copy';
+  el.addEventListener('click',()=>{navigator.clipboard.writeText(el.textContent);alert(el.textContent+' copied');});
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EDU SPORTS IT — Login</title>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+body{
+  background: linear-gradient(-45deg, #0f172a, #1e293b, #0ea5a4, #38bdf8);
+  background-size: 400% 400%;
+  animation: gradientMove 10s ease infinite;
+  color: #fff;
+  overflow-x:hidden;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  font-size: 22px;
+  color: #38bdf8;
+  gap: 10px;
+}
+.logo img {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #38bdf8;
+}
+@keyframes gradientMove {0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+
+nav{
+  position:fixed;top:0;left:0;width:100%;background:rgba(15,23,42,0.95);
+  display:flex;justify-content:space-between;align-items:center;padding:14px 20px;z-index:1000;
+  backdrop-filter: blur(6px);
+}
+nav .logo{font-weight:700;font-size:22px;color:#38bdf8;}
+nav .nav-links{display:flex;gap:20px;}
+nav .nav-links a{color:#fff;text-decoration:none;font-weight:500;padding:8px 12px;border-radius:6px;transition:0.3s;}
+nav .nav-links a:hover{background:#38bdf8;color:#0f172a;}
+.menu-btn{display:none;color:#fff;font-size:30px;background:none;border:none;cursor:pointer;}
+@media (max-width:900px){
+  .menu-btn{display:block;}
+  .nav-links{display:none;flex-direction:column;position:absolute;top:60px;right:20px;background:rgba(15,23,42,0.98);
+  width:200px;border-radius:8px;padding:15px;text-align:right;}
+  .nav-links.active{display:flex;animation:slide 0.3s ease;}
+  @keyframes slide{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}
+}
+
+.login-container{display:flex;justify-content:center;align-items:center;height:100vh;}
+.login-box{background: rgba(0,0,0,0.6);padding:40px;border-radius:12px;width:320px;text-align:center;
+box-shadow:0 8px 20px rgba(0,0,0,0.3);}
+.login-box h2{color:#38bdf8;margin-bottom:20px;}
+.login-box input{width:100%;padding:10px;margin:10px 0;border-radius:6px;border:none;}
+.login-box button{
+  width:100%;padding:10px;margin-top:15px;border:none;border-radius:6px;
+  background:#38bdf8;color:#0f172a;font-weight:600;cursor:pointer;transition:0.3s;}
+.login-box button:hover{background:#0ea5a4;}
+.login-box a{color:#38bdf8;text-decoration:none;font-weight:500;display:block;margin-top:15px;}
+.google-btn{background:#fff;color:#000;font-weight:600;margin-top:10px;padding:10px;width:100%;border:none;border-radius:6px;cursor:pointer;transition:0.3s;}
+.google-btn:hover{background:#f0f0f0;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">
+    <img src="edu-sports-it.png" alt="Logo">
+    <span>EDU SPORTS IT</span>
+  </div>
+  <button class="menu-btn" id="menuBtn">&#9776;</button>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html">Home</a>
+    <a href="courses.html">Courses</a>
+    <a href="about.html">About</a>
+    <a href="chat.html">World Chat</a>
+    <a href="help.html">Help Center</a>
+    <a href="review.html">Reviews</a>
+    <a href="login.html">Login</a>
+    <a href="signup.html">Sign-Up</a>
+  </div>
+</nav>
+
+
+<div class="login-container">
+  <div class="login-box">
+    <h2>Login</h2>
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button onclick="login()">Login</button>
+    <button class="google-btn" onclick="googleSignIn()">Login with Google</button>
+    <a href="signup.html">Don't have an account? Sign Up</a>
+  </div>
+</div>
+
+<script>
+const menuBtn=document.getElementById('menuBtn');
+const navLinks=document.getElementById('navLinks');
+menuBtn.addEventListener('click',()=>navLinks.classList.toggle('active'));
+
+// Firebase Config
+const firebaseConfig = {
+  apiKey: "AIzaSyDR5yywOyYjCSnfTyLTcMUIz-hG80jZXU4",
+  authDomain: "edu-sports-it.firebaseapp.com",
+  databaseURL: "https://edu-sports-it-default-rtdb.firebaseio.com",
+  projectId: "edu-sports-it",
+  storageBucket: "edu-sports-it.appspot.com",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+// Email Login with Verification check
+function login(){
+  const email=document.getElementById('email').value;
+  const password=document.getElementById('password').value;
+
+  auth.signInWithEmailAndPassword(email,password)
+  .then(userCredential=>{
+    const user = userCredential.user;
+    if(user.emailVerified){
+      alert("Login Successful!");
+      window.location.href="index.html";
+    }else{
+      alert("Please verify your email before login!");
+      auth.signOut();
+    }
+  })
+  .catch(error=>{alert(error.message);});
+}
+
+// Google Login
+function googleSignIn(){
+  const provider = new firebase.auth.GoogleAuthProvider();
+  auth.signInWithPopup(provider)
+  .then(result=>{
+    alert("Google Login Successful!");
+    window.location.href="index.html";
+  })
+  .catch(error=>{alert(error.message);});
+}
+</script>
+
+</body>
+</html>

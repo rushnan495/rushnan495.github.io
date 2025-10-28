@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="QfNpnEIdvg8lpoZYY21xRk1YVP_VszrI3bSkpIo8YoA" />
+<title>EDU SPORTS IT — Home</title>
+<a href="google-site-verification=Bic-45geaqp59q2NTynSTQOnj_WpR0b2NRZD2gq5K5Y"></a>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+body {
+  background: linear-gradient(-45deg, #0f172a, #1e293b, #0ea5a4, #38bdf8);
+  background-size: 400% 400%;
+  animation: gradientMove 10s ease infinite;
+  color: #fff;
+  overflow-x: hidden;
+}
+@keyframes gradientMove {
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
+}
+
+/* ---------- NAVBAR ---------- */
+nav {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  background: rgba(15,23,42,0.95);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  z-index: 1000;
+  backdrop-filter: blur(6px);
+}
+.logo {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  font-size: 22px;
+  color: #38bdf8;
+  gap: 10px;
+}
+.logo img {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #38bdf8;
+}
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+.nav-links a:hover {
+  background: #38bdf8;
+  color: #0f172a;
+}
+.menu-btn {
+  display: none;
+  color: #fff;
+  font-size: 30px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+@media (max-width: 900px) {
+  .menu-btn {display: block;}
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background: rgba(15,23,42,0.98);
+    width: 200px;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: right;
+  }
+  .nav-links.active {
+    display: flex;
+    animation: slide 0.3s ease;
+  }
+  @keyframes slide {
+    from {opacity: 0; transform: translateY(-10px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+}
+
+/* ---------- HERO SECTION ---------- */
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+  padding: 20px;
+}
+.hero h1 {
+  font-size: 3rem;
+  color: #38bdf8;
+  animation: fadeIn 2s ease-in-out;
+}
+.hero p {
+  font-size: 1.3rem;
+  color: #e2e8f0;
+  margin-top: 15px;
+  animation: fadeIn 2.5s ease-in-out;
+}
+.btn {
+  background: #38bdf8;
+  color: #0f172a;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  margin-top: 30px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.btn:hover {background: #0ea5a4;}
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(20px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+/* ---------- FOOTER ---------- */
+footer {
+  text-align: center;
+  padding: 25px;
+  color: #94a3b8;
+  margin-top: 20px;
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">
+    <img src="edu-sports-it.png" alt="Logo">
+    <span>EDU SPORTS IT</span>
+  </div>
+  <button class="menu-btn" id="menuBtn">&#9776;</button>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html">Home</a>
+    <a href="courses.html">Courses</a>
+    <a href="about.html">About</a>
+    <a href="chat.html">World Chat</a>
+    <a href="help.html">Help Center</a>
+    <a href="review.html">Reviews</a>
+    <a href="login.html">Login</a>
+    <a href="signup.html">Sign-Up</a>
+    <a href="profile.html">Profile</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <h1>🌏✪ EDU SPORTS IT ✪🌏</h1>
+  <p id="typing"></p>
+  <button class="btn" onclick="location.href='courses.html'">Explore Courses</button>
+</section>
+
+<footer>© 2025 EDU SPORTS INFORMATION & TECHNOLOGY</footer>
+
+<script>
+const menuBtn = document.getElementById('menuBtn');
+const navLinks = document.getElementById('navLinks');
+menuBtn.addEventListener('click', () => navLinks.classList.toggle('active'));
+
+const textArray = [
+  "Empowering Minds Through Technology.",
+  "Where Innovation Meets Passion.",
+  "Learn. Build. Grow with EDU SPORTS IT!"
+];
+let i = 0, j = 0, currentText = "", isDeleting = false;
+function typeEffect() {
+  currentText = textArray[i];
+  if (!isDeleting && j < currentText.length) {
+    document.getElementById("typing").textContent = currentText.substring(0, j + 1);
+    j++; setTimeout(typeEffect, 100);
+  } else if (isDeleting && j > 0) {
+    document.getElementById("typing").textContent = currentText.substring(0, j - 1);
+    j--; setTimeout(typeEffect, 50);
+  } else if (!isDeleting && j === currentText.length) {
+    isDeleting = true; setTimeout(typeEffect, 1000);
+  } else if (isDeleting && j === 0) {
+    isDeleting = false; i = (i + 1) % textArray.length; setTimeout(typeEffect, 200);
+  }
+}
+typeEffect();
+</script>
+
+</body>
+</html>

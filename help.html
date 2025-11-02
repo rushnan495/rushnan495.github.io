@@ -1,14 +1,28 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>EDU SPORTS IT | Help Center</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
-body{background:linear-gradient(-45deg,#0f172a,#1e293b,#0ea5a4,#38bdf8);background-size:400% 400%;animation:gradientMove 10s ease infinite;color:#fff;overflow-x:hidden;}
-@keyframes gradientMove{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
-nav{position:fixed;top:0;left:0;width:100%;background:#0f172a;display:flex;justify-content:space-between;align-items:center;padding:10px 15px;z-index:1000;}
+body{
+  background:linear-gradient(-45deg,#0f172a,#1e293b,#0ea5a4,#38bdf8);
+  background-size:400% 400%;
+  animation:gradientMove 10s ease infinite;
+  color:#fff;overflow-x:hidden;
+}
+@keyframes gradientMove{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+nav{
+  position:fixed;top:0;left:0;width:100%;
+  background:#0f172a;display:flex;
+  justify-content:space-between;align-items:center;
+  padding:10px 15px;z-index:1000;
+}
 nav .logo{display:flex;align-items:center;font-weight:700;font-size:20px;color:#38bdf8;gap:8px;}
 nav .logo img{width:34px;height:34px;border-radius:50%;object-fit:cover;border:2px solid #38bdf8;}
 nav .nav-links{display:flex;gap:12px;}
@@ -17,7 +31,13 @@ nav .nav-links a:hover{background:#38bdf8;color:#0f172a;}
 .menu-btn{display:none;color:#fff;font-size:28px;background:none;border:none;cursor:pointer;}
 @media(max-width:900px){
   .menu-btn{display:block;}
-  .nav-links{display:flex;flex-direction:column;position:fixed;top:50px;right:-220px;background:#0f172a;width:200px;border-radius:8px 0 0 8px;padding:12px;text-align:right;height:calc(100% - 50px);transition:right 0.3s ease;z-index:9999;gap:10px;}
+  .nav-links{
+    display:flex;flex-direction:column;
+    position:fixed;top:50px;right:-220px;
+    background:#0f172a;width:200px;border-radius:8px 0 0 8px;
+    padding:12px;text-align:right;height:calc(100% - 50px);
+    transition:right 0.3s ease;z-index:9999;gap:10px;
+  }
   .nav-links.active{right:0;}
   .nav-links a{margin-bottom:10px;font-size:15px;}
 }
@@ -25,18 +45,19 @@ section{margin-top:80px;padding:20px;text-align:center;}
 h1{font-size:2.4rem;color:#38bdf8;margin-bottom:20px;}
 p{color:#e2e8f0;font-size:15px;max-width:700px;margin:auto;margin-bottom:25px;}
 .chatbox{background:rgba(30,41,59,0.85);border-radius:12px;max-width:700px;margin:auto;padding:20px;box-shadow:0 0 15px rgba(56,189,248,0.3);display:flex;flex-direction:column;}
-.messages{height:360px;overflow-y:auto;text-align:left;margin-bottom:15px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth;padding:8px 4px;}
-.msg{max-width:75%;padding:10px 15px;border-radius:10px;line-height:1.4;word-wrap:break-word;animation:fadeIn 0.25s ease;display:flex;align-items:flex-end;gap:8px;}
-@keyframes fadeIn{from{opacity:0;transform:translateY:8px;}to{opacity:1;transform:translateY:0;}}
+.messages{height:320px;overflow-y:auto;text-align:left;margin-bottom:15px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth;padding:8px;}
+.msg{max-width:75%;padding:10px 15px;border-radius:10px;line-height:1.4;word-wrap:break-word;animation:fadeIn 0.3s ease;display:flex;align-items:flex-end;gap:8px;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
 .bot{background:#0ea5a4;color:#0f172a;align-self:flex-start;border-bottom-left-radius:0;}
 .user{background:#38bdf8;color:#0f172a;align-self:flex-end;border-bottom-right-radius:0;display:block;}
-.admin{background:#ffd880;color:#0f172a;align-self:flex-start;border-bottom-left-radius:0; color:#000;}
-.msg img{width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.06);}
+.admin{background:#ffd880;color:#0f172a;align-self:flex-start;border-bottom-left-radius:0;color:#000;}
+.msg img{width:32px;height:32px;border-radius:50%;object-fit:cover;}
 .input-area{display:flex;gap:8px;}
-input{flex:1;padding:10px;border:none;border-radius:6px;font-size:14px;outline:none;}
-button{padding:8px 14px;border:none;border-radius:6px;background:#38bdf8;color:#0f172a;font-weight:600;cursor:pointer;transition:0.2s;font-size:14px;}
+input{flex:1;padding:8px;border:none;border-radius:6px;font-size:14px;outline:none;}
+button{padding:8px 14px;border:none;border-radius:6px;background:#38bdf8;color:#0f172a;font-weight:600;cursor:pointer;transition:0.3s;font-size:14px;}
 button:hover{background:#0ea5a4;}
-.footer{ text-align:center;padding:20px;color:#94a3b8;margin-top:20px;}
+.footer{text-align:center;padding:20px;color:#94a3b8;margin-top:30px;}
+.status-badge{font-size:13px;color:#94a3b8;margin-left:12px;}
 </style>
 </head>
 <body>
@@ -53,7 +74,7 @@ button:hover{background:#0ea5a4;}
     <a href="chat.html">World Chat</a>
     <a href="help.html">Help Center</a>
     <a href="review.html">Reviews</a>
-    <a href="login.html">Login</a>
+    <a href="login.html" id="navLogin">Login</a>
     <a href="signup.html">Sign-Up</a>
     <a href="profile.html">Profile</a>
   </div>
@@ -61,25 +82,32 @@ button:hover{background:#0ea5a4;}
 
 <section>
   <h1>Help Center</h1>
-  <p>Ask your question below. If the bot doesn't know the answer, our owner will reply soon.</p>
+  <p>Welcome to the EDU SPORTS IT Help Center. Ask your questions below and our assistant bot will respond instantly</p>
 
   <div class="chatbox">
     <div class="messages" id="messages">
-      <div class="msg bot"><img src="edu-sports-it.png" alt="Bot"> <div>👋 Hello! I'm your assistant. Ask me anything about the club.</div></div>
+      <div class="msg bot"><img src="edu-sports-it.png" alt="Bot"><div class="bubble">👋 Hello! I'm your AI assistant for the IT Club. Ask me anything about the club.</div></div>
     </div>
-    <div class="input-area">
+
+    <div style="display:flex;align-items:center;gap:10px;margin-top:8px;">
+      <div class="status-badge" id="loginStatus">Checking login...</div>
+    </div>
+
+    <div class="input-area" style="margin-top:10px;">
       <input type="text" id="userInput" placeholder="Type your question...">
       <button id="sendBtn">Send</button>
     </div>
   </div>
 </section>
 
-<div class="footer">© 2025 EDU SPORTS INFORMATION & TECHNOLOGY</div>
+<footer class="footer">© 2025 EDU SPORTS INFORMATION & TECHNOLOGY</footer>
 
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
 
 <script>
+// Firebase config — keep your own keys here (you already had these)
 const firebaseConfig = {
   apiKey: "AIzaSyDR5yywOyYjCSnfTyLTcMUIz-hG80jZXU4",
   authDomain: "edu-sports-it.firebaseapp.com",
@@ -90,65 +118,211 @@ const firebaseConfig = {
   appId: "YOUR_APP_ID"
 };
 firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
 const db = firebase.database();
 
-let clientId = localStorage.getItem('esit_clientId');
-if(!clientId){
-  clientId = 'c_' + Math.random().toString(36).slice(2,12);
-  localStorage.setItem('esit_clientId', clientId);
-}
-let clientName = localStorage.getItem('esit_clientName') || 'Guest';
-let sending=false;
+const menuBtn = document.getElementById('menuBtn');
+const navLinks = document.getElementById('navLinks');
+menuBtn.addEventListener('click', ()=>navLinks.classList.toggle('active'));
 
-const messagesEl = document.getElementById('messages');
+const messages = document.getElementById('messages');
 const userInput = document.getElementById('userInput');
 const sendBtn = document.getElementById('sendBtn');
+const loginStatus = document.getElementById('loginStatus');
+const navLogin = document.getElementById('navLogin');
 
-function appendMsgNode({type,text,avatar,name}){
+/* ---------- Behavior change you asked for ----------
+   DO NOT redirect on page load.
+   Only redirect to login.html when user clicks Send and is NOT logged in.
+   Also show current login status in top area.
+-----------------------------------------------------*/
+
+/* show login status using Firebase Auth. If you use your own localStorage login,
+   we check auth.currentUser first, otherwise fall back to localStorage 'currentUser'.
+*/
+function getCurrentUserInfo(){
+  const u = auth.currentUser;
+  if(u) return {uid: u.uid, name: u.displayName || u.email, email: u.email, avatar: u.photoURL || 'edu-sports-it.png', via: 'firebase'};
+  // fallback to localStorage if you used that previously
+  try {
+    const local = JSON.parse(localStorage.getItem('currentUser'));
+    if(local && local.uid) return {uid: local.uid, name: local.name || local.email || 'Guest', email: local.email || '', avatar: local.img || 'edu-sports-it.png', via:'local'};
+  } catch(e){}
+  return null;
+}
+
+/* update UI status (on load and on auth change) */
+function refreshStatusUI(){
+  const info = getCurrentUserInfo();
+  if(info){
+    loginStatus.textContent = 'Signed in as: ' + (info.name || info.email);
+    navLogin.textContent = 'Sign out';
+    navLogin.href = '#';
+  } else {
+    loginStatus.textContent = 'You are not signed in. Click Send to login.';
+    navLogin.textContent = 'Login';
+    navLogin.href = 'login.html';
+  }
+}
+
+/* nav login click: if logged-in, sign out local (or firebase signOut) */
+navLogin.addEventListener('click', async (e)=>{
+  const info = getCurrentUserInfo();
+  if(info){
+    // sign out from firebase if using firebase auth
+    try{ await auth.signOut(); } catch(e){ /* ignore */ }
+    // also clear local storage currentUser if present
+    localStorage.removeItem('currentUser');
+    refreshStatusUI();
+  } else {
+    // let anchor navigate to login.html
+  }
+});
+
+/* listen firebase auth state changes (if you're using firebase auth) */
+auth.onAuthStateChanged(u=>{
+  refreshStatusUI();
+});
+
+/* initial UI */
+refreshStatusUI();
+
+/* helper: append message to chat UI (no username for user messages as requested) */
+function appendMessageLocal(m){
   const el = document.createElement('div');
-  el.classList.add('msg',type==='admin'?'admin':type==='user'?'user':'bot');
-  const img = document.createElement('img'); img.src=avatar||'edu-sports-it.png'; img.alt=name||type;
+  el.className = 'msg ' + (m.from === 'user' ? 'user' : (m.from === 'admin' ? 'admin' : 'bot'));
+  const img = document.createElement('img');
+  img.src = (m.from === 'admin') ? (m.adminAvatar || 'rushnan.jpg') : (m.userAvatar || 'edu-sports-it.png');
+  img.alt = m.from === 'admin' ? 'Owner' : (m.userName || 'User');
+  const bubble = document.createElement('div');
+  bubble.className = 'bubble';
+  bubble.textContent = m.text; // do NOT show user's name in UI per request
   el.appendChild(img);
-  const txt = document.createElement('div'); txt.textContent=(name?name+": ":"")+text;
-  el.appendChild(txt);
-  messagesEl.appendChild(el);
-  messagesEl.scrollTop = messagesEl.scrollHeight;
+  el.appendChild(bubble);
+  messages.appendChild(el);
+  messages.scrollTop = messages.scrollHeight;
 }
 
-sendBtn.addEventListener('click', sendMessage);
-userInput.addEventListener('keypress', e=>{ if(e.key==='Enter') sendMessage(); });
+/* load previous messages for this clientId if needed (clientId stored in localStorage) */
+let clientId = localStorage.getItem('esit_clientId');
+if(!clientId){ clientId = 'c_' + Math.random().toString(36).slice(2,12); localStorage.setItem('esit_clientId', clientId); }
 
-function sendMessage(){
-  if(sending) return; sending=true;
-  const text=userInput.value.trim(); if(!text){sending=false;return;}
-  userInput.value='';
-  appendMsgNode({type:'user', text, avatar:'edu-sports-it.png', name:clientName});
-
-  const msgObj={text, from:'user', clientId, userName:clientName, userAvatar:'edu-sports-it.png', timestamp:Date.now()};
-  db.ref('messages').push(msgObj);
-
-  const knowledge=[
-    {q:"how to join it club", a:"Fill the online registration form and attend the orientation session."},
-    {q:"available courses", a:"Programming, AI, Web Design, Cybersecurity, Networking, and more."},
-    {q:"who is the club president", a:"The current president is Rushnan Khan."},
-    {q:"club events", a:"Monthly coding challenges, hackathons, workshops, and tech talks."},
-    {q:"tools required", a:"VS Code, Git, Node.js, Chrome DevTools, Figma, and relevant software."},
-    {q:"contacts", a:"You can reach the team via our official email or the About page."}
-  ];
-  let botReply="I don't know the answer yet, our owner will reply soon!";
-  const ltext=text.toLowerCase();
-  for(let k of knowledge){ if(ltext.includes(k.q)) botReply=k.a; }
-  db.ref('messages').push({text:botReply, from:'bot', clientId, userName:'Bot', userAvatar:'edu-sports-it.png', timestamp:Date.now()});
-
-  sending=false;
-}
-
-// load previous + live messages
+/* listen live for admin replies and other messages for this clientId */
 db.ref('messages').orderByChild('clientId').equalTo(clientId).on('child_added', snap=>{
-  const m = snap.val(); if(!m) return;
-  appendMsgNode({type:m.from==='user'?'user':m.from==='admin'?'admin':'bot', text:m.text, avatar:m.userAvatar||'edu-sports-it.png', name:m.userName||m.adminName||'Owner'});
+  const m = snap.val();
+  if(!m) return;
+  // avoid duplicate display if we already appended locally using a temporary key
+  if(window._esit_seen && window._esit_seen[snap.key]) return;
+  window._esit_seen = window._esit_seen || {};
+  window._esit_seen[snap.key] = true;
+  appendMessageLocal(m);
+});
+
+/* send button behaviour: only redirect to login if user is NOT logged in when pressing Send.
+   If logged-in, it will send normally.
+*/
+let sending = false;
+sendBtn.addEventListener('click', handleSend);
+userInput.addEventListener('keypress', e=>{ if(e.key === 'Enter') handleSend(); });
+
+async function handleSend(){
+  if(sending) return;
+  const text = userInput.value.trim();
+  if(!text) return;
+
+  const userInfo = getCurrentUserInfo();
+  if(!userInfo){
+    // not logged in -> redirect to login page (user asked this behaviour)
+    // optionally save draft or target page
+    // store the typed message so after login you can show or prefill (optional)
+    localStorage.setItem('pendingHelpMessage', text);
+    window.location.href = 'login.html';
+    return;
+  }
+
+  // logged-in -> send message
+  sending = true;
+  userInput.value = '';
+
+  // build message object (save userName & email for admin, but DO NOT show name in UI)
+  const msgObj = {
+    text,
+    from: 'user',
+    clientId,
+    userId: userInfo.uid || ('guest_' + Math.random().toString(36).slice(2,8)),
+    userName: userInfo.name || userInfo.email || 'User',
+    userEmail: userInfo.email || '',
+    userAvatar: userInfo.avatar || 'edu-sports-it.png',
+    timestamp: Date.now()
+  };
+
+  try{
+    // append locally immediately (prevents waiting for DB) — we still don't show name in bubble
+    appendMessageLocal(msgObj);
+
+    // push to database
+    const ref = db.ref('messages').push();
+    await ref.set(msgObj);
+
+    // update inbox metadata for admin (so admin can see name/email and unread)
+    await db.ref('inbox/' + clientId).update({
+      clientId,
+      userName: msgObj.userName,
+      userEmail: msgObj.userEmail,
+      userAvatar: msgObj.userAvatar,
+      lastMessage: msgObj.text,
+      lastMessageAt: msgObj.timestamp,
+      unread: true
+    });
+
+    // simple local KB check for immediate auto-answer
+    const kb = [
+      {q:"how to join it club", a:"Fill the online registration form and attend the orientation session."},
+      {q:"available courses", a:"Programming, AI, Web Design, Cybersecurity, Networking, and more."},
+      {q:"who is the club president", a:"The current president is Rushnan Khan."}
+    ];
+    const l = text.toLowerCase();
+    let kbAns = null;
+    for(const k of kb) if(l.includes(k.q)) { kbAns = k.a; break; }
+
+    if(kbAns){
+      await db.ref('messages').push({
+        text: kbAns, from: 'bot', clientId, userName: 'Bot', userAvatar: 'edu-sports-it.png', timestamp: Date.now()
+      });
+      await db.ref('inbox/' + clientId).update({ unread: false });
+    } else {
+      const fallback = "🤖 I don't know the answer yet. Our owner will reply soon!";
+      await db.ref('messages').push({
+        text: fallback, from: 'bot', clientId, userName: 'Bot', userAvatar: 'edu-sports-it.png', timestamp: Date.now()
+      });
+      // add pending entry (optional)
+      await db.ref('pendingMessages').push({
+        question: text, clientId, userName: msgObj.userName, userEmail: msgObj.userEmail, userAvatar: msgObj.userAvatar, date: Date.now()
+      });
+    }
+  }catch(err){
+    console.error('send failed', err);
+    alert('Message send failed.');
+  } finally {
+    sending = false;
+  }
+}
+
+/* If user logged in and returned from login page with a pending message, auto-send it */
+window.addEventListener('load', ()=>{
+  const pending = localStorage.getItem('pendingHelpMessage');
+  const userInfo = getCurrentUserInfo();
+  if(pending && userInfo){
+    // clear pending and set input then auto-send
+    localStorage.removeItem('pendingHelpMessage');
+    userInput.value = pending;
+    // small delay to allow page to settle
+    setTimeout(()=>{ handleSend(); }, 400);
+  }
 });
 </script>
 </body>
 </html>
+
+
 

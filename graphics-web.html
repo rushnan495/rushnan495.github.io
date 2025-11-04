@@ -174,19 +174,37 @@ const msg=document.getElementById('msg');
 const copyNum=document.getElementById('copyNum');
 const inputs=popupOverlay.querySelectorAll('.code-inputs input');
 
-// Popup open/close
-enrollBtn.addEventListener('click',()=>{popupOverlay.style.display='flex';inputs[0].focus();});
+// ✅ Check if unlocked before
+window.addEventListener("load",()=>{
+  const unlocked=localStorage.getItem("graphics_course_unlocked");
+  if(unlocked==="true"){
+    enrollBtn.textContent="Enter";
+  }
+});
+
+// ✅ Enroll button click
+enrollBtn.addEventListener('click',()=>{
+  const unlocked=localStorage.getItem("graphics_course_unlocked");
+  if(unlocked==="true"){
+    window.location.href="graphics-page.html";
+  }else{
+    popupOverlay.style.display='flex';
+    inputs[0].focus();
+  }
+});
+
+// Popup close
 closePopup.addEventListener('click',()=>{popupOverlay.style.display='none';inputs.forEach(i=>i.value='');msg.innerHTML='';});
 popupOverlay.addEventListener('click',e=>{if(e.target===popupOverlay){popupOverlay.style.display='none';inputs.forEach(i=>i.value='');msg.innerHTML='';}});
 
-// Input auto move
+// Auto input move
 inputs.forEach((input,index)=>{
   input.addEventListener('input',()=>{
     input.value=input.value.replace(/[^0-9]/g,'');
-    if(input.value && index<inputs.length-1) inputs[index+1].focus();
+    if(input.value && index<inputs.length-1)inputs[index+1].focus();
   });
   input.addEventListener('keydown',e=>{
-    if(e.key==='Backspace' && !input.value && index>0) inputs[index-1].focus();
+    if(e.key==='Backspace'&&!input.value&&index>0)inputs[index-1].focus();
   });
 });
 
@@ -197,7 +215,7 @@ copyNum.addEventListener('click',()=>{
   setTimeout(()=>copyNum.textContent='01966090467',1000);
 });
 
-// Verify system
+// ✅ Verify code
 verifyBtn.addEventListener('click',async()=>{
   let code='';inputs.forEach(i=>code+=i.value);
   if(code.length<6){msg.innerHTML='<p class="error">Please enter all 6 digits!</p>';return;}
@@ -213,7 +231,14 @@ verifyBtn.addEventListener('click',async()=>{
   if(foundKey){
     await update(ref(db,"codes/"+foundKey),{used:true});
     msg.innerHTML='<p class="success">✅ Code verified successfully!</p>';
-    setTimeout(()=>{popupOverlay.style.display='none';msg.innerHTML='';},2000);
+
+    // Save unlock status
+    localStorage.setItem("graphics_course_unlocked","true");
+    setTimeout(()=>{
+      popupOverlay.style.display='none';
+      msg.innerHTML='';
+      enrollBtn.textContent="Enter";
+    },2000);
   }else{
     msg.innerHTML='<p class="error">❌ Invalid or already used code!</p>';
   }
@@ -221,3 +246,5 @@ verifyBtn.addEventListener('click',async()=>{
 </script>
 </body>
 </html>
+
+

@@ -43,6 +43,8 @@ font-weight:600;cursor:pointer;margin-top:15px;transition:0.3s;}
 .course-description h2{color:#38bdf8;margin-bottom:10px;}
 .course-description ul{list-style:none;line-height:1.7;}
 .course-description li::before{content:"✔️ ";color:#22c55e;}
+.delete-btn{margin-top:20px;background:#ef4444;color:#fff;border:none;padding:10px 20px;border-radius:8px;font-weight:600;cursor:pointer;transition:0.3s;}
+.delete-btn:hover{background:#ff4d4d;}
 footer{text-align:center;padding:25px;color:#94a3b8;margin-top:40px;}
 
 /* Popup styles */
@@ -56,7 +58,6 @@ footer{text-align:center;padding:25px;color:#94a3b8;margin-top:40px;}
 }
 @keyframes fadeIn{from{opacity:0;transform:scale(0.9);}to{opacity:1;transform:scale(1);}}
 
-/* Code box */
 .code-inputs{
   display:flex;
   justify-content:center;
@@ -109,7 +110,11 @@ footer{text-align:center;padding:25px;color:#94a3b8;margin-top:40px;}
   <div class="course-header">
     <h1>Graphics & Web Design Course ( Live )</h1>
     <div class="price-box">
-      <div><span class="price">৳200</span><span class="old-price">৳500</span><span class="discount">53% OFF</span></div>
+      <div>
+        <span class="price">৳200</span>
+        <span class="old-price">৳500</span>
+        <span class="discount">53% OFF</span>
+      </div>
       <button class="enroll-btn" id="enrollBtn">Enroll Now</button>
     </div>
   </div>
@@ -132,6 +137,8 @@ footer{text-align:center;padding:25px;color:#94a3b8;margin-top:40px;}
       <li>একবার কিনলেই Lifetime Access!</li>
     </ul>
   </div>
+
+  <button class="delete-btn" id="deleteSubBtn">Delete Subscription</button>
 </section>
 
 <footer>© 2025 EDU SPORTS INFORMATION & TECHNOLOGY</footer>
@@ -171,61 +178,82 @@ const enrollBtn=document.getElementById('enrollBtn');
 const verifyBtn=document.getElementById('verifyBtn');
 const closePopup=document.getElementById('closePopup');
 const msg=document.getElementById('msg');
-const copyNum=document.getElementById('copyNum');
 const inputs=popupOverlay.querySelectorAll('.code-inputs input');
+const deleteSubBtn = document.getElementById('deleteSubBtn');
 
-// ✅ Check if unlocked before
-window.addEventListener("load",()=>{
-  const unlocked=localStorage.getItem("graphics_course_unlocked");
-  if(unlocked==="true"){
-    enrollBtn.textContent="Enter";
+// ✅ Show Enter only if unlocked
+window.addEventListener("load", () => {
+  const unlocked = localStorage.getItem("graphics_course_unlocked");
+  if (unlocked === "true") {
+    enrollBtn.textContent = "Enter";
+  } else {
+    deleteSubBtn.style.display = "none";
   }
 });
 
-// ✅ Enroll button click
-enrollBtn.addEventListener('click',()=>{
-  const unlocked=localStorage.getItem("graphics_course_unlocked");
-  if(unlocked==="true"){
-    window.location.href="graphics-page.html";
-  }else{
-    popupOverlay.style.display='flex';
+// ✅ Enroll/Enter button click
+enrollBtn.addEventListener('click', () => {
+  const unlocked = localStorage.getItem("graphics_course_unlocked");
+  if (unlocked === "true") {
+    window.location.href = "graphics-page.html";
+  } else {
+    popupOverlay.style.display = 'flex';
     inputs[0].focus();
   }
 });
 
+// ✅ Delete Subscription button click
+deleteSubBtn.addEventListener('click', () => {
+  if(confirm("Are you sure you want to delete subscription? This will lock the course again.")){
+    localStorage.removeItem("graphics_course_unlocked");
+    enrollBtn.textContent = "Enroll Now";
+    deleteSubBtn.style.display = "none";
+    alert("Subscription deleted. You need to enter code again to unlock.");
+  }
+});
+
 // Popup close
-closePopup.addEventListener('click',()=>{popupOverlay.style.display='none';inputs.forEach(i=>i.value='');msg.innerHTML='';});
-popupOverlay.addEventListener('click',e=>{if(e.target===popupOverlay){popupOverlay.style.display='none';inputs.forEach(i=>i.value='');msg.innerHTML='';}});
+closePopup.addEventListener('click', () => {
+  popupOverlay.style.display='none';
+  inputs.forEach(i=>i.value='');
+  msg.innerHTML='';
+});
+popupOverlay.addEventListener('click', e => {
+  if(e.target === popupOverlay){
+    popupOverlay.style.display='none';
+    inputs.forEach(i=>i.value='');
+    msg.innerHTML='';
+  }
+});
 
 // Auto input move
 inputs.forEach((input,index)=>{
   input.addEventListener('input',()=>{
     input.value=input.value.replace(/[^0-9]/g,'');
-    if(input.value && index<inputs.length-1)inputs[index+1].focus();
+    if(input.value && index<inputs.length-1) inputs[index+1].focus();
   });
-  input.addEventListener('keydown',e=>{
-    if(e.key==='Backspace'&&!input.value&&index>0)inputs[index-1].focus();
+  input.addEventListener('keydown', e => {
+    if(e.key==='Backspace' && !input.value && index>0) inputs[index-1].focus();
   });
 });
 
 // Copy number
-copyNum.addEventListener('click',()=>{
+document.getElementById('copyNum').addEventListener('click', () => {
   navigator.clipboard.writeText('01966090467');
-  copyNum.textContent='Copied!';
-  setTimeout(()=>copyNum.textContent='01966090467',1000);
+  document.getElementById('copyNum').textContent='Copied!';
+  setTimeout(()=>document.getElementById('copyNum').textContent='01966090467',1000);
 });
 
 // ✅ Verify code
-verifyBtn.addEventListener('click',async()=>{
-  let code='';inputs.forEach(i=>code+=i.value);
-  if(code.length<6){msg.innerHTML='<p class="error">Please enter all 6 digits!</p>';return;}
+verifyBtn.addEventListener('click', async () => {
+  let code = '';
+  inputs.forEach(i => code += i.value);
+  if(code.length < 6){ msg.innerHTML='<p class="error">Please enter all 6 digits!</p>'; return; }
 
-  const snapshot=await get(ref(db,"codes"));
-  let foundKey=null;
-  snapshot.forEach(child=>{
-    if(child.val().code===code && !child.val().used){
-      foundKey=child.key;
-    }
+  const snapshot = await get(ref(db,"codes"));
+  let foundKey = null;
+  snapshot.forEach(child => {
+    if(child.val().code===code && !child.val().used) foundKey=child.key;
   });
 
   if(foundKey){
@@ -234,17 +262,19 @@ verifyBtn.addEventListener('click',async()=>{
 
     // Save unlock status
     localStorage.setItem("graphics_course_unlocked","true");
-    setTimeout(()=>{
+    setTimeout(() => {
       popupOverlay.style.display='none';
       msg.innerHTML='';
-      enrollBtn.textContent="Enter";
-    },2000);
-  }else{
+      enrollBtn.textContent = "Enter";
+      deleteSubBtn.style.display = "inline-block";
+    }, 2000);
+  } else {
     msg.innerHTML='<p class="error">❌ Invalid or already used code!</p>';
   }
 });
 </script>
 </body>
 </html>
+
 
 

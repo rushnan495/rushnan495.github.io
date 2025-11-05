@@ -279,8 +279,137 @@ async function handleSend(){
     const kb = [
       {q:"how to join it club", a:"Fill the online registration form and attend the orientation session."},
       {q:"available courses", a:"Programming, AI, Web Design, Cybersecurity, Networking, and more."},
-      {q:"who is the club president", a:"The current president is Rushnan Khan."}
-    ];
+      {q:"who is the club president", a:"The current president is Rushnan Khan."},
+  { q: "what is it club", a: "The IT Club is a student community that explores technology, coding, and digital innovation through teamwork and creativity." },
+  { q: "about it club", a: "It’s a platform for students who are passionate about technology, programming, and learning modern digital skills." },
+  { q: "what does the club do", a: "The club organizes workshops, coding sessions, events, and tech talks to enhance members’ knowledge and practical skills." },
+  { q: "what are the goals of the club", a: "Our main goals are to develop technical skills, teamwork, leadership, and problem-solving abilities among students." },
+  { q: "who can join", a: "Any student interested in technology or digital innovation can join the IT Club." },
+  { q: "is it open for everyone", a: "Yes, all students are welcome to join regardless of skill level." },
+  { q: "is membership free", a: "No, membership requires 600 BDT. But courses are free to you for life-time." },
+  { q: "who founded the club", a: "Rushnan Khan" },
+  { q: "who is the club president", a: "Rushnan Khan" },
+  { q: "who are the club volunteers", a: "Mubarrat, Saadman and Sohan are the most common figures of our IT club. Go to 'About' section to learn more about them." },
+  { q: "who are the members", a: "Unfortunately, we can't provide members list or information right now." },
+  { q: "how many members are there", a: "Unfortunately, we can't provide members list or information right now." },
+
+  // Joining & registration
+  { q: "how to join it club", a: "Contact with our Owner: Rushnan Khan, to join the IT club. Contact: +880 1966-090467 ." },
+  { q: "how to become a member", a: "Contact with our Owner: Rushnan Khan, to join the IT club. Contact: +880 1966-090467 ." },
+  { q: "requirements to join", a: "You just need interest in IT-related topics and a willingness to learn. No prior experience required." },
+  { q: "can i join anytime", a: "Yes, but registration may close temporarily during major events or competitions." },
+  { q: "join deadline", a: "Usually, registration deadlines are announced on the website or notice board." },
+
+  // Events & competitions
+  { q: "how to participate in events", a: "Event registration is usually done online through forms or the Events page." },
+  { q: "upcoming events", a: "All upcoming events are listed on the website." },
+  { q: "how to register for event", a: "Contact with our Owner: Rushnan Khan. Contact: +880 1966-090467 ." },
+  { q: "how to be a volunteer", a: "Contact with our Owner: Rushnan Khan. Contact: +880 1966-090467 . Not many slots might be left." },
+
+  // Rules & regulations
+  { q: "club rules", a: "Members must maintain discipline, teamwork, and respect during all activities." },
+  { q: "club dress code", a: "No strict dress code, but formal attire may be required during special events." },
+  { q: "membership cancellation", a: "You can cancel membership by informing the club admin or filling a leave request form." },
+  { q: "expulsion", a: "Members violating club rules or misusing resources may face temporary or permanent suspension." },
+  { q: "rules for members", a: "Be respectful, participate actively, and follow event or meeting instructions." },
+  { q: "what is not allowed", a: "Disrespectful behavior, spamming, or misuse of club equipment is strictly prohibited." },
+  { q: "disallowed things", a: "Disrespectful behavior, spamming, or misuse of club equipment is strictly prohibited." },
+
+  // Technical support
+  { q: "website issue", a: "Try refreshing the page or clearing cache. If the issue remains, contact the website admin." },
+  { q: "login problem", a: "Check your credentials and internet connection. If it persists, reset your password or contact admin." },
+  { q: "password reset", a: "Use the ‘Forgot Password’ option or contact admin for manual reset." },
+  { q: "form not working", a: "Make sure all fields are filled correctly. If still not working, reload the page or report the issue." },
+  { q: "how to contact admin", a: "You can reach the admin through the ‘About’ section of the website." },
+  { q: "contact support", a: "Support is available via the official email or the Help Centre chat." },
+  { q: "bug report", a: "Use the contact form or email to report bugs with details and screenshots." },
+  { q: "feedback", a: "We appreciate your feedback! You can send it through the Feedback form or chat." },
+
+  // Communication
+  { q: "how to contact", a: "You can contact the club through the official website or email or directly contact with our owner." },
+  { q: "club email", a: "currently, e-mail any volunteer or the owner." },
+  { q: "contact number", a: "currently, contact any volunteer or the owner." },
+  { q: "social media", a: "N/A" },
+  { q: "club website", a: "Visit the official website for all information, updates, and registration links." },
+  { q: "club updates", a: "All updates are posted in the Announcements section or shared through emails." },
+
+  // Membership details
+  { q: "membership fee", a: "Membership is us free, unless special paid courses are announced." },
+  { q: "renew membership", a: "Membership is renewed automatically each academic year unless cancelled." },
+  { q: "cancel membership", a: "You can cancel membership anytime by contacting the admin." },
+  { q: "membership benefits", a: "Members gain access to workshops, contests, certificates, and skill development opportunities." },
+  { q: "what do members get", a: "Members receive learning materials, participation opportunities, and experience certificates." },
+  { q: "id card", a: "Some clubs issue digital or printed member ID cards for official events." },
+  { q: "certificate", a: "Certificates are provided for active members or event participants." },
+  { q: "membership confirmation", a: "Once your registration is approved, you’ll receive an email or message confirmation." },
+
+  // Miscellaneous
+  { q: "club motto", a: "‘Learn, Create, and Innovate.’" },
+  { q: "club vision", a: "To inspire students to become future-ready by embracing technology and creativity." },
+  { q: "club mission", a: "To build a tech-savvy community that collaborates, learns, and leads innovation." },
+  { q: "achievements", a: "The club has organized successful workshops, coding events, and student-led projects." },
+  { q: "awards", a: "Awards are given to outstanding members and event winners each term." },
+  { q: "partners", a: "currently unavailable" },
+  { q: "sponsors", a: "currently unavailable" },
+  { q: "donations", a: "Donations help improve club equipment, fund events, and support learning materials." },
+  { q: "projects", a: "Members often collaborate on projects like websites, apps, or research papers." },
+  { q: "team members", a: "currently unavailable" },
+  { q: "leadership team", a: "currently unavailable" },
+  { q: "advisors", a: "currently unavailable" },
+  { q: "motherfucker", a: "🫵" },
+  { q: "son of a bitch", a: "🫵" },
+  { q: "stupid", a: "🫵" },
+  { q: "idiot", a: "🫵" },
+  { q: "noob", a: "🫵" },
+  { q: "chudina", a: "chudiyen na" },
+  { q: "chudlam na", a: "chudiyen na" },
+  { q: "chudi na", a: "chudiyen na" },
+  { q: "cudi na", a: "cuidden na" },
+  { q: "cudlam na", a: "cuidden na" },
+  { q: "chodna", a: "🫵" },
+  { q: "madarchod", a: "🫵" },
+  { q: "bainchod", a: "🫵" },
+  { q: "bokachoda", a: "🫵" },
+  { q: "chodon", a: "🫵" },
+  { q: "codon", a: "🫵" },
+  { q: "bokacoda", a: "🫵" },
+  { q: "baincod", a: "🫵" },
+  { q: "madarcod", a: "🫵" },
+  { q: "khankir pola", a: "🫵" },
+  { q: "hey", a: "Hi there! How may I help you?" },
+  { q: "hello", a: "Hi there! How may I help you?" },
+  { q: "hi", a: "Hi there! How may I help you?" },
+  { q: "fuck you", a: "Fuck you Too!" },
+];
+
+function cleanInput(input) {
+  return input
+    .toLowerCase()
+    .replace(/[^\w\s]/gi, "") // remove punctuation/symbols
+    .trim();
+}
+
+// Detect if input is in English
+function isEnglish(text) {
+  return /^[A-Za-z0-9\s]+$/.test(text);
+}
+
+// Main chatbot function
+function getBotReply(userInput) {
+  if (!isEnglish(userInput)) {
+    return "English only 😅";
+  }
+
+  const cleanedInput = cleanInput(userInput);
+
+  // Match user input to known question
+  const found = kb.find(item => cleanedInput.includes(item.q));
+
+  return found
+    ? found.a || "(No answer added yet)"
+    : "Sorry, I didn’t get that. Try rephrasing your question!";
+}
+    
     const l = text.toLowerCase();
     let kbAns = null;
     for(const k of kb) if(l.includes(k.q)) { kbAns = k.a; break; }
@@ -291,7 +420,7 @@ async function handleSend(){
       });
       await db.ref('inbox/' + clientId).update({ unread: false });
     } else {
-      const fallback = "🤖 I don't know the answer yet. Our owner will reply soon!";
+      const fallback = "🤖 I don't know the answer yet. Our owner will reply soon when he was Active. so please connect with us!😃";
       await db.ref('messages').push({
         text: fallback, from: 'bot', clientId, userName: 'Bot', userAvatar: 'edu-sports-it.png', timestamp: Date.now()
       });
@@ -323,6 +452,9 @@ window.addEventListener('load', ()=>{
 </script>
 </body>
 </html>
+
+
+
 
 
 

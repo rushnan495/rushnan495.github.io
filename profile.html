@@ -21,13 +21,13 @@ body{
   overflow-x:hidden;
 }
 @keyframes gradientMove {0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
-
 nav{
   position:fixed;top:0;left:0;width:100%;background:rgba(15,23,42,0.95);
   display:flex;justify-content:space-between;align-items:center;padding:14px 20px;z-index:1000;
   backdrop-filter: blur(6px);
 }
-nav .logo{font-weight:700;font-size:22px;color:#38bdf8;}
+nav .logo{font-weight:700;font-size:22px;color:#38bdf8;display:flex;align-items:center;gap:10px;}
+nav .logo img{width:38px;height:38px;border-radius:50%;object-fit:cover;border:2px solid #38bdf8;}
 nav .nav-links{display:flex;gap:20px;}
 nav .nav-links a{color:#fff;text-decoration:none;font-weight:500;padding:8px 12px;border-radius:6px;transition:0.3s;}
 nav .nav-links a:hover{background:#38bdf8;color:#0f172a;}
@@ -50,49 +50,32 @@ nav .nav-links a:hover{background:#38bdf8;color:#0f172a;}
   box-shadow:0 8px 20px rgba(0,0,0,0.3);
   position:relative;
 }
-.profile-pic-wrapper{
-  position:relative;
-  width:120px;
-  margin:0 auto 15px auto;
-}
-#profilePic{
-  width:120px;height:120px;border-radius:50%;object-fit:cover;border:2px solid #38bdf8; cursor:pointer;
-}
-#uploadIcon{
-  position:absolute;
-  bottom:0; right:0;
-  background:#38bdf8;
-  color:#0f172a;
-  border-radius:50%;
-  padding:6px;
-  font-size:18px;
-  cursor:pointer;
-  border:2px solid #0f172a;
-}
-.profile-box input{
-  width:100%;margin:10px 0;padding:10px;border:none;border-radius:6px;font-size:16px;outline:none;
-}
-.save-btn{
-  margin-top:15px;padding:10px 20px;border:none;border-radius:6px;background:#38bdf8;color:#0f172a;font-weight:600;cursor:pointer;transition:0.3s;
-}
-.logo {
-  display: flex;
-  align-items: center;
-  font-weight: 700;
-  font-size: 22px;
-  color: #38bdf8;
-  gap: 10px;
-}
-.logo img {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #38bdf8;
-}
+.profile-pic-wrapper{position:relative;width:120px;margin:0 auto 15px auto;}
+#profilePic{width:120px;height:120px;border-radius:50%;object-fit:cover;border:2px solid #38bdf8;cursor:pointer;}
+#uploadIcon{position:absolute;bottom:0;right:0;background:#38bdf8;color:#0f172a;border-radius:50%;padding:6px;font-size:18px;cursor:pointer;border:2px solid #0f172a;}
+.profile-box input{width:100%;margin:10px 0;padding:10px;border:none;border-radius:6px;font-size:16px;outline:none;}
+.save-btn{margin-top:15px;padding:10px 20px;border:none;border-radius:6px;background:#38bdf8;color:#0f172a;font-weight:600;cursor:pointer;transition:0.3s;}
 .save-btn:hover{background:#0ea5a4;}
 .logout-btn{margin-top:10px;padding:10px 20px;border:none;border-radius:6px;background:orange;color:#0f172a;font-weight:600;cursor:pointer;transition:0.3s;}
 .logout-btn:hover{background:#ff9500;}
+
+.courses-section{text-align:center;margin-top:40px;padding:40px 20px; display:none;}
+.courses-section h2{font-size:26px;color:#38bdf8;margin-bottom:15px;}
+#emptyMsg{color:#94a3b8;margin-top:10px;}
+.course-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:25px;margin-top:25px;}
+.course-card{
+  background:rgba(15,23,42,0.9);
+  border-radius:10px;width:220px;padding:15px;
+  box-shadow:0 0 15px rgba(56,189,248,0.3);
+  transition:0.3s;cursor:pointer;
+}
+.course-card:hover{transform:translateY(-6px);box-shadow:0 0 25px rgba(56,189,248,0.6);}
+.course-card img{width:100%;border-radius:8px;margin-bottom:10px;}
+.course-card h3{color:#38bdf8;margin-bottom:6px;}
+.delete-btn{margin-top:20px;background:#ef4444;color:#fff;border:none;padding:10px 20px;border-radius:8px;font-weight:600;cursor:pointer;transition:0.3s; display:none;}
+.delete-btn:hover{background:#ff4d4d;}
+
+footer{text-align:center;padding:25px;color:#94a3b8;margin-top:50px;}
 </style>
 </head>
 <body>
@@ -135,104 +118,126 @@ nav .nav-links a:hover{background:#38bdf8;color:#0f172a;}
   </div>
 </div>
 
+<section class="courses-section" id="graphicsCourseSection">
+  <h2>Your Graphics & Web Design Course</h2>
+  <p id="emptyMsg">Empty — You haven’t unlocked this course yet.</p>
+  <div class="course-grid" id="courseGrid"></div>
+  <button class="delete-btn" id="deleteSubBtn">Delete Subscription</button>
+</section>
+
+<footer>© 2025 EDU SPORTS INFORMATION & TECHNOLOGY</footer>
+
 <script>
 const menuBtn=document.getElementById('menuBtn');
 const navLinks=document.getElementById('navLinks');
 menuBtn.addEventListener('click',()=>navLinks.classList.toggle('active'));
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDR5yywOyYjCSnfTyLTcMUIz-hG80jZXU4",
-  authDomain: "edu-sports-it.firebaseapp.com",
-  databaseURL: "https://edu-sports-it-default-rtdb.firebaseio.com",
-  projectId: "edu-sports-it",
-  storageBucket: "edu-sports-it.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+const firebaseConfig={
+  apiKey:"AIzaSyDR5yywOyYjCSnfTyLTcMUIz-hG80jZXU4",
+  authDomain:"edu-sports-it.firebaseapp.com",
+  databaseURL:"https://edu-sports-it-default-rtdb.firebaseio.com",
+  projectId:"edu-sports-it",
+  storageBucket:"edu-sports-it.appspot.com"
 };
 firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.database();
-const storage = firebase.storage();
+const auth=firebase.auth();
+const db=firebase.database();
+const storage=firebase.storage();
 
-let selectedFile = null;
+let selectedFile=null;
+const courseSection=document.getElementById('graphicsCourseSection');
+const courseGrid=document.getElementById('courseGrid');
+const emptyMsg=document.getElementById('emptyMsg');
+const deleteBtn=document.getElementById('deleteSubBtn');
 
-// Load profile
+// --- Load profile & courses ---
 auth.onAuthStateChanged(async user=>{
   if(user){
-    const uid = user.uid;
-    const snapshot = await db.ref("users/"+uid).get();
+    const uid=user.uid;
+    const snapshot=await db.ref("users/"+uid).get();
     if(snapshot.exists()){
-      const data = snapshot.val();
-      document.getElementById('name').value = data.name || "";
-      document.getElementById('institution').value = data.institution || "";
-      document.getElementById('class').value = data.class || "";
-      document.getElementById('roll').value = data.roll || "";
-      document.getElementById('version').value = data.version || "";
-      document.getElementById('branch').value = data.branch || "";
-      if(data.photoURL) document.getElementById('profilePic').src = data.photoURL;
+      const data=snapshot.val();
+      document.getElementById('name').value=data.name||"";
+      document.getElementById('institution').value=data.institution||"";
+      document.getElementById('class').value=data.class||"";
+      document.getElementById('roll').value=data.roll||"";
+      document.getElementById('version').value=data.version||"";
+      document.getElementById('branch').value=data.branch||"";
+      if(data.photoURL) document.getElementById('profilePic').src=data.photoURL;
     }
-  } else {
+
+    // --- Show graphics course only if unlocked ---
+    const unlocked = localStorage.getItem("graphics_course_unlocked");
+    if(unlocked==="true"){
+      courseSection.style.display="block";
+      deleteBtn.style.display="inline-block";
+      courseGrid.innerHTML="";
+      const div=document.createElement("div");
+      div.className="course-card";
+      div.innerHTML=`<img src="graphics-thumb.jpg" alt=""><h3>Graphics Design</h3><p>Click to open</p>`;
+      div.onclick=()=>location.href="graphics-page.html";
+      courseGrid.appendChild(div);
+      emptyMsg.style.display="none";
+    } else {
+      courseSection.style.display="block";
+      deleteBtn.style.display="none";
+      emptyMsg.style.display="block";
+    }
+  } else{
     alert("Please login first!");
     window.location.href="login.html";
   }
 });
 
-// Image preview
-const photoInput = document.getElementById('photoInput');
-photoInput.addEventListener('change', function(){
-  const file = this.files[0];
+// --- Image upload ---
+const photoInput=document.getElementById('photoInput');
+photoInput.addEventListener('change',function(){
+  const file=this.files[0];
   if(file){
-    selectedFile = file;
-    const reader = new FileReader();
-    reader.onload = function(e){
-      document.getElementById('profilePic').src = e.target.result;
-    }
+    selectedFile=file;
+    const reader=new FileReader();
+    reader.onload=e=>document.getElementById('profilePic').src=e.target.result;
     reader.readAsDataURL(file);
   }
 });
 document.getElementById('profilePic').addEventListener('click',()=>photoInput.click());
 document.getElementById('uploadIcon').addEventListener('click',()=>photoInput.click());
 
-// Save profile
+// --- Save profile ---
 async function saveProfile(){
-  const user = auth.currentUser;
+  const user=auth.currentUser;
   if(!user) return alert("Please login first!");
-  const uid = user.uid;
-
-  let photoURL = null;
+  const uid=user.uid;
+  let photoURL=null;
   if(selectedFile){
-    try{
-      const storageRef = storage.ref('profilePics/'+uid+'/'+selectedFile.name);
-      const snapshot = await storageRef.put(selectedFile);
-      photoURL = await snapshot.ref.getDownloadURL();
-    } catch(err){
-      return alert("Image upload failed: "+err.message);
-    }
+    const storageRef=storage.ref('profilePics/'+uid+'/'+selectedFile.name);
+    const snap=await storageRef.put(selectedFile);
+    photoURL=await snap.ref.getDownloadURL();
   }
-
-  const data = {
-    name: document.getElementById('name').value,
-    institution: document.getElementById('institution').value,
-    class: document.getElementById('class').value,
-    roll: document.getElementById('roll').value,
-    version: document.getElementById('version').value,
-    branch: document.getElementById('branch').value
+  const data={
+    name:document.getElementById('name').value,
+    institution:document.getElementById('institution').value,
+    class:document.getElementById('class').value,
+    roll:document.getElementById('roll').value,
+    version:document.getElementById('version').value,
+    branch:document.getElementById('branch').value
   };
-  if(photoURL) data.photoURL = photoURL;
+  if(photoURL) data.photoURL=photoURL;
+  await db.ref('users/'+uid).update(data);
+  alert("Profile saved successfully!");
+  selectedFile=null;
+}
 
-  try{
-    await db.ref('users/'+uid).set(data);
-    alert("Profile saved successfully!");
-    selectedFile = null;
-  } catch(err){
-    alert("Save failed: "+err.message);
+// --- Logout ---
+function logout(){auth.signOut().then(()=>location.href="index.html");}
+
+// --- Delete Subscription ---
+deleteBtn.addEventListener('click',()=>{
+  if(confirm("Are you sure you want to delete subscription?")){
+    localStorage.removeItem("graphics_course_unlocked");
+    location.reload();
   }
-}
-
-// Logout
-function logout(){
-  auth.signOut().then(()=>{ window.location.href="index.html"; });
-}
+});
 </script>
 </body>
 </html>

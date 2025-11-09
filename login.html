@@ -53,17 +53,62 @@ nav .nav-links a:hover{background:#38bdf8;color:#0f172a;}
 }
 
 .login-container{display:flex;justify-content:center;align-items:center;height:100vh;}
-.login-box{background: rgba(0,0,0,0.6);padding:40px;border-radius:12px;width:320px;text-align:center;
-box-shadow:0 8px 20px rgba(0,0,0,0.3);}
+.login-box{
+  background: rgba(0,0,0,0.6);
+  padding:40px;
+  border-radius:12px;
+  width:320px;
+  text-align:center;
+  box-shadow:0 8px 20px rgba(0,0,0,0.3);
+}
 .login-box h2{color:#38bdf8;margin-bottom:20px;}
-.login-box input{width:100%;padding:10px;margin:10px 0;border-radius:6px;border:none;}
+.login-box input{
+  width:100%;
+  padding:10px;
+  margin:10px 0;
+  border-radius:6px;
+  border:none;
+}
 .login-box button{
-  width:100%;padding:10px;margin-top:15px;border:none;border-radius:6px;
-  background:#38bdf8;color:#0f172a;font-weight:600;cursor:pointer;transition:0.3s;}
+  width:100%;
+  padding:10px;
+  margin-top:15px;
+  border:none;
+  border-radius:6px;
+  background:#38bdf8;
+  color:#0f172a;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.3s;
+}
 .login-box button:hover{background:#0ea5a4;}
-.login-box a{color:#38bdf8;text-decoration:none;font-weight:500;display:block;margin-top:15px;}
-.google-btn{background:#fff;color:#000;font-weight:600;margin-top:10px;padding:10px;width:100%;border:none;border-radius:6px;cursor:pointer;transition:0.3s;}
+.login-box a{
+  color:#38bdf8;
+  text-decoration:none;
+  font-weight:500;
+  display:block;
+  margin-top:15px;
+  transition:0.3s;
+}
+.login-box a:hover{color:#0ea5a4;}
+.google-btn{
+  background:#fff;
+  color:#000;
+  font-weight:600;
+  margin-top:10px;
+  padding:10px;
+  width:100%;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  transition:0.3s;
+}
 .google-btn:hover{background:#f0f0f0;}
+.forgot{
+  text-align:right;
+  font-size:14px;
+  margin-top:-5px;
+}
 </style>
 </head>
 <body>
@@ -92,6 +137,12 @@ box-shadow:0 8px 20px rgba(0,0,0,0.3);}
     <h2>Login</h2>
     <input type="email" id="email" placeholder="Email" required>
     <input type="password" id="password" placeholder="Password" required>
+
+    <!-- Forgot Password -->
+    <div class="forgot">
+      <a href="#" onclick="resetPassword()">Forgot Password?</a>
+    </div>
+
     <button onclick="login()">Login</button>
     <button class="google-btn" onclick="googleSignIn()">Login with Google</button>
     <a href="signup.html">Don't have an account? Sign Up</a>
@@ -145,7 +196,26 @@ function googleSignIn(){
   })
   .catch(error=>{alert(error.message);});
 }
+
+// Forgot Password
+function resetPassword(){
+  const email = document.getElementById('email').value;
+  if(!email){
+    alert("Please enter your email to reset password!");
+    return;
+  }
+
+  auth.sendPasswordResetEmail(email)
+  .then(()=>{
+    alert("Password reset email sent! Please check your inbox.");
+  })
+  .catch(error=>{
+    alert(error.message);
+  });
+}
 </script>
 
 </body>
 </html>
+
+

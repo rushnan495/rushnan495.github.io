@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EDU SPORTS IT — Courses</title>
+
 <style>
 /* ---------- GLOBAL ---------- */
 * {
@@ -12,13 +13,16 @@
   box-sizing: border-box;
   font-family: 'Segoe UI', sans-serif;
 }
+
 body {
   background: linear-gradient(-45deg, #0f172a, #1e293b, #0ea5a4, #38bdf8);
   background-size: 400% 400%;
   animation: gradientMove 10s ease infinite;
   color: #fff;
   overflow-x: hidden;
+  padding-top: 80px; /* 🔥 FIX FOR FIXED NAVBAR */
 }
+
 @keyframes gradientMove {
   0% {background-position: 0% 50%;}
   50% {background-position: 100% 50%;}
@@ -28,7 +32,8 @@ body {
 /* ---------- NAVBAR ---------- */
 nav {
   position: fixed;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   width: 100%;
   background: rgba(15,23,42,0.95);
   display: flex;
@@ -38,14 +43,16 @@ nav {
   z-index: 1000;
   backdrop-filter: blur(6px);
 }
+
 .logo {
   display: flex;
   align-items: center;
+  gap: 10px;
   font-weight: 700;
   font-size: 22px;
   color: #38bdf8;
-  gap: 10px;
 }
+
 .logo img {
   width: 38px;
   height: 38px;
@@ -53,10 +60,12 @@ nav {
   object-fit: cover;
   border: 2px solid #38bdf8;
 }
+
 .nav-links {
   display: flex;
   gap: 20px;
 }
+
 .nav-links a {
   color: #fff;
   text-decoration: none;
@@ -65,25 +74,30 @@ nav {
   border-radius: 6px;
   transition: 0.3s;
 }
+
 .nav-links a:hover {
   background: #38bdf8;
   color: #0f172a;
 }
+
 .menu-btn {
   display: none;
-  color: #fff;
   font-size: 30px;
   background: none;
   border: none;
+  color: #fff;
   cursor: pointer;
 }
+
+/* ---------- MOBILE NAV ---------- */
 @media (max-width: 900px) {
-  .menu-btn {display: block;}
+  .menu-btn { display: block; }
+
   .nav-links {
     display: none;
     flex-direction: column;
     position: absolute;
-    top: 60px;
+    top: 65px;
     right: 20px;
     background: rgba(15,23,42,0.98);
     width: 200px;
@@ -91,67 +105,87 @@ nav {
     padding: 15px;
     text-align: right;
   }
-  .nav-links.active {display: flex; animation: slide 0.3s ease;}
-  @keyframes slide {from {opacity:0; transform:translateY(-10px);} to {opacity:1; transform:translateY(0);}}
+
+  .nav-links.active {
+    display: flex;
+    animation: slide 0.3s ease;
+  }
+
+  @keyframes slide {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 }
 
 /* ---------- HERO ---------- */
 .hero {
+  min-height: 25vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 25vh;
   text-align: center;
   padding: 20px;
 }
+
 .hero h1 {
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   color: #38bdf8;
-}
-.hero p {
-  font-size: 1.2rem;
-  color: #e2e8f0;
-  margin-top: 10px;
+  text-shadow: 0 4px 10px rgba(0,0,0,0.4);
 }
 
-/* ---------- CERTIFICATE BOXES ---------- */
+.hero p {
+  margin-top: 10px;
+  font-size: 1.2rem;
+  color: #e2e8f0;
+}
+
+/* ---------- CERTIFICATES ---------- */
 .certificate-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 60px 20px 40px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 30px;
-  padding: 60px 20px 40px 20px;
-  max-width: 1200px;
-  margin: auto;
 }
+
 .certificate-box {
-  background: rgba(255, 255, 255, 0.15); /* events certificate style */
-  border-radius: 15px;
-  padding: 30px 20px;
   width: 250px;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 30px 20px;
+  border-radius: 15px;
   text-align: center;
   box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-  color: #fff;
-  transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+  transition: 0.3s;
 }
+
 .certificate-box:hover {
   transform: translateY(-10px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(255,255,255,0.25);
 }
-.certificate-box h2 {margin-bottom: 10px;}
-.certificate-box p {margin-bottom: 15px; font-size: 0.95rem;}
+
+.certificate-box h2 {
+  margin-bottom: 10px;
+}
+
+.certificate-box p {
+  font-size: 0.95rem;
+  margin-bottom: 15px;
+}
+
 .get-btn {
   display: inline-block;
   padding: 10px 20px;
   background: #38bdf8;
   color: #0f172a;
-  border-radius: 5px;
+  border-radius: 6px;
   text-decoration: none;
   font-weight: bold;
-  transition: background 0.3s, color 0.3s;
+  transition: 0.3s;
 }
+
 .get-btn:hover {
   background: #0ea5a4;
   color: #fff;
@@ -162,10 +196,10 @@ footer {
   text-align: center;
   padding: 25px;
   color: #94a3b8;
-  margin-top: 20px;
 }
 </style>
 </head>
+
 <body>
 
 <nav>
@@ -173,13 +207,15 @@ footer {
     <img src="edu-sports-it.png" alt="Logo">
     <span>EDU SPORTS IT</span>
   </div>
+
   <button class="menu-btn" id="menuBtn">&#9776;</button>
+
   <div class="nav-links" id="navLinks">
     <a href="index.html">Home</a>
     <a href="courses.html">Courses</a>
     <a href="about.html">About</a>
     <a href="chat.html">World Chat</a>
-    <a href="help.html">Help Center</a>
+    <a href="event.html">Events</a>
     <a href="review.html">Reviews</a>
     <a href="login.html">Login</a>
     <a href="signup.html">Sign-Up</a>
@@ -188,7 +224,7 @@ footer {
 </nav>
 
 <section class="hero">
-  <h1>🎓 Explore Our Courses</h1>
+  <h1>🎓 Get Your Certificate</h1>
   <p>Learn. Build. Grow with EDU SPORTS IT!</p>
 </section>
 
@@ -198,21 +234,25 @@ footer {
     <p>Learn HTML, CSS & more</p>
     <a href="webdesign.html" class="get-btn">Get Now</a>
   </div>
+
   <div class="certificate-box">
     <h2>C# Programming</h2>
     <p>Learn C# basics & projects</p>
     <a href="csharp.html" class="get-btn">Get Now</a>
   </div>
+
   <div class="certificate-box">
     <h2>JavaScript</h2>
     <p>Learn JS fundamentals</p>
     <a href="javascript.html" class="get-btn">Get Now</a>
   </div>
+
   <div class="certificate-box">
     <h2>Python</h2>
     <p>Learn Python programming</p>
     <a href="python.html" class="get-btn">Get Now</a>
   </div>
+
   <div class="certificate-box">
     <h2>Data Science</h2>
     <p>Learn Data analysis & visualization</p>
@@ -223,10 +263,14 @@ footer {
 <footer>© 2025 EDU SPORTS INFORMATION & TECHNOLOGY</footer>
 
 <script>
-const menuBtn = document.getElementById('menuBtn');
-const navLinks = document.getElementById('navLinks');
-menuBtn.addEventListener('click', () => navLinks.classList.toggle('active'));
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+
+menuBtn.addEventListener("click", () => {
+  navLinks.classList.toggle("active");
+});
 </script>
 
 </body>
 </html>
+

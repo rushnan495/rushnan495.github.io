@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EDU SPORTS IT | Admin Inbox</title>
-
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,Arial}
 body{height:100vh;background:#071027;color:#fff;display:flex;overflow:hidden}
@@ -15,15 +14,15 @@ body{height:100vh;background:#071027;color:#fff;display:flex;overflow:hidden}
 }
 .top{padding:14px;font-weight:700;color:#38bdf8;border-bottom:1px solid rgba(255,255,255,.05)}
 .user-list{flex:1;overflow-y:auto}
-.user-item{display:flex;align-items:center;gap:12px;padding:12px;cursor:pointer;border-bottom:1px solid rgba(255,255,255,.04);}
+.user-item{display:flex;align-items:center;gap:12px;padding:12px;cursor:pointer;border-bottom:1px solid rgba(255,255,255,.04);position:relative;}
 .user-item:hover{background:rgba(56,189,248,.05)}
 .user-item.active{background:rgba(56,189,248,.15);box-shadow:inset 3px 0 0 #38bdf8;animation:glow 1.5s infinite alternate;}
 @keyframes glow{from{box-shadow:inset 3px 0 0 #38bdf8,0 0 8px rgba(56,189,248,.4);}to{box-shadow:inset 3px 0 0 #38bdf8,0 0 18px rgba(56,189,248,.7);}}
 .user-item img{width:44px;height:44px;border-radius:50%}
 .user-meta{flex:1;min-width:0}
-.user-meta strong{display:block}
+.user-meta strong{display:block;font-weight:700}
 .user-meta span{font-size:13px;color:#cbd5e1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.dot{width:10px;height:10px;background:#2563eb;border-radius:50%;box-shadow:0 0 10px rgba(37,99,235,.9);}
+.dot{width:10px;height:10px;background:#2563eb;border-radius:50%;box-shadow:0 0 10px rgba(37,99,235,.9);position:absolute;right:10px;top:16px}
 
 /* CHAT */
 .right{flex:1;display:flex;flex-direction:column}
@@ -36,6 +35,7 @@ body{height:100vh;background:#071027;color:#fff;display:flex;overflow:hidden}
 .bubble{padding:10px 12px;border-radius:10px;font-size:14px}
 .bubble.user{background:#38bdf8;color:#071027}
 .bubble.admin{background:#ffd166;color:#000}
+.bubble.bot{background:#0ea5a4;color:#fff}
 
 /* FOOTER */
 .chat-footer{display:flex;gap:8px;padding:10px;border-top:1px solid rgba(255,255,255,.05)}
@@ -51,10 +51,8 @@ body{height:100vh;background:#071027;color:#fff;display:flex;overflow:hidden}
 }
 </style>
 </head>
-
 <body>
 
-<!-- LONGER NOTIFICATION SOUND -->
 <audio id="notifSound" preload="auto">
   <source src="https://assets.mixkit.co/active_storage/sfx/2577/2577-preview.mp3" type="audio/mpeg">
 </audio>
@@ -111,10 +109,11 @@ db.ref("inbox").on("value",snap=>{
     .forEach(u=>{
       const d=document.createElement("div");
       d.className="user-item"+(active===u.clientId?" active":"");
+      const userName = u.userName || (u.from==='bot'?'System Bot':u.clientId);
       d.innerHTML=`
         <img src="${u.userAvatar||'edu-sports-it.png'}">
         <div class="user-meta">
-          <strong>${u.userName||u.clientId}</strong>
+          <strong>${userName}</strong>
           <span>${u.lastMessage||""}</span>
         </div>
         ${u.unread?'<div class="dot"></div>':""}
@@ -136,8 +135,8 @@ db.ref("messages").on("child_added",snap=>{
 
   db.ref("inbox/"+m.clientId).update({
     clientId:m.clientId,
-    userName:m.userName||m.clientId,
-    userAvatar:m.userAvatar||'edu-sports-it.png',
+    userName: m.userName || (m.from==='bot'?'System Bot':m.clientId),
+    userAvatar:m.userAvatar || 'edu-sports-it.png',
     lastMessage:m.text,
     lastMessageAt:m.timestamp||Date.now(),
     unread:m.from==='user' && active!==m.clientId?true:prev
@@ -158,8 +157,8 @@ function openChat(id){
   msgInput.focus();
 
   const u=users[id];
-  chatName.textContent=u.userName||id;
-  chatImg.src=u.userAvatar||"edu-sports-it.png";
+  chatName.textContent=u.userName || (u.from==='bot'?'System Bot':id);
+  chatImg.src=u.userAvatar || "edu-sports-it.png";
   chatTime.textContent=new Date(u.lastMessageAt||Date.now()).toLocaleString();
 
   db.ref("inbox/"+id).update({unread:false});
@@ -173,27 +172,36 @@ function openChat(id){
 /* ADD MESSAGE */
 function addMsg(m){
   const d=document.createElement("div");
-  d.className="msg "+(m.from==="user"?"right":"");
+  d.className="msg "+(m.from==="user"?"right":(m.from==='bot'?'':''));
   d.innerHTML=`
     <img src="${m.from==='admin'?'rushnan.jpg':(m.userAvatar||'edu-sports-it.png')}">
     <div class="bubble ${m.from}">
-      ${m.from==='admin'?'Rushnan Khan: ':''}${m.text}
+      ${m.from==='admin'?'Rushnan Khan: ': m.from==='bot'?'System Bot: ':' '}${m.text}
     </div>`;
   chatBody.appendChild(d);
   chatBody.scrollTop=chatBody.scrollHeight;
 }
 
-/* SEND */
-sendBtn.onclick=()=>{
-  if(!msgInput.value||!active)return;
+/* SEND MESSAGE */
+function sendMessage(){
+  if(!msgInput.value || !active) return;
   db.ref("messages").push({
-    text:msgInput.value,
-    from:"admin",
-    clientId:active,
-    timestamp:Date.now()
+    text: msgInput.value,
+    from: "admin",
+    clientId: active,
+    timestamp: Date.now()
   });
   msgInput.value="";
-};
+}
+
+// Send on button click
+sendBtn.onclick = sendMessage;
+
+// Send on Enter key press
+msgInput.addEventListener("keypress", function(e){
+    if(e.key === "Enter") sendMessage();
+});
 </script>
 </body>
 </html>
+

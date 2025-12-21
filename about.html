@@ -205,11 +205,11 @@ footer{text-align:center;padding:25px;color:#94a3b8;margin-top:20px;}
       <p>Software Engineer</p>
       <button class="view-btn">View Details</button>
     </div>
-    <div class="card" data-name="Saadman Khan" data-role="Python Developer & Video Editing Expert" data-img="saadu.jpg">
-      <img src="" alt="Volunteer">
-      <h3>We are finding</h3>
-      <p>Python Developer & Video Editing Expert</p>
-      
+    <div class="card" data-name="Saadman Khan" data-role="Linux & System, Penetration Testing, Malware Developer, Darkweb Analytic" data-img="dipon.png">
+      <img src="dipon.png" alt="Volunteer">
+      <h3>Dipon Pal</h3>
+      <p>Linux & System, Penetration Testing, Malware Developer, Darkweb Analytic</p>
+      <button class="view-btn">View Details</button>
     </div>
     <div class="card" data-name="Sohan" data-role="Authority of Starzone" data-img="Screenshot 2025-10-11 164143.png">
       <img src="Screenshot 2025-10-11 164143.png" alt="Sohan">
@@ -303,13 +303,11 @@ Welcome to my world — STARZONE — where passion turns into purpose, and creat
 🎥 YouTube: P.B.L.</p>`;
       document.getElementById('sohanInsta').addEventListener('click',()=>{navigator.clipboard.writeText('@pblsohan');alert('@pblsohan copied');});
     } 
-    else if(card.dataset.name==="Saadman Khan"){
-      modalDesc.innerHTML=`<p><strong>About Me:</strong><br>
-I’m Saadman Khan, a student passionate about technology and creativity. I focus mainly on Python programming for Data Science and Machine Learning, exploring how data can be used to solve real-world problems. Alongside coding, I enjoy video editing, where I bring ideas to life through visuals. I’m always learning and pushing myself to combine both logic and creativity in everything I do.<br><br>
-<strong>My Skills:</strong><br>- Python Programming (Data Science & Machine Learning)<br>- Video Editing<br><br>
-<strong>Goals:</strong><br>To become skilled in Data Science and Machine Learning, and to create meaningful projects that combine data, technology, and creativity.<br><br>
-<strong>Contacts:</strong><br>Discord: saadman_404<br>WhatsApp: +8801327801220<br>Email: <span id="saadEmail" style="cursor:pointer;">msaadman56@proton.me</span></p>`;
-      document.getElementById('saadEmail').addEventListener('click',()=>{navigator.clipboard.writeText('msaadman56@proton.me');alert('msaadman56@proton.me copied');});
+    else if(card.dataset.name==="Dipon Pal"){
+      modalDesc.innerHTML=`<p>
+<strong>My Skills:</strong><br>- Linux & System<br>- Penetration Testing<br>-Malware Developer<br>-Darkweb Analytic<br><br>
+<strong>Contacts:</strong><br>WhatsApp: +880 1789-395362<br>Email: <span id="saadEmail" style="cursor:pointer;">corruptedflame69@gmail.com</span></p>`;
+      document.getElementById('saadEmail').addEventListener('click',()=>{navigator.clipboard.writeText('corruptedflame69@gmail.com');alert('corruptedflame69@gmail.com copied');});
     } 
     else if(card.dataset.name==="We are Finding"){
       modalDesc.innerHTML=`We are finding a volunteer and if you want to join, contact with our owner!`;
@@ -342,5 +340,6 @@ window.addEventListener('click',e=>{if(e.target===ownerModal)ownerModal.classLis
 
 </body>
 </html>
+
 
 

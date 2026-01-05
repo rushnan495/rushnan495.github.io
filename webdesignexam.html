@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EDU SPORTS IT — Web Design Exam</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI', sans-serif;
+}
+
+/* ===== BACKGROUND (HOME STYLE) ===== */
+body{
+  background:linear-gradient(-45deg,#0f172a,#1e293b,#0ea5a4,#38bdf8);
+  background-size:400% 400%;
+  animation:gradientMove 10s ease infinite;
+  color:#fff;
+}
+@keyframes gradientMove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+/* ===== NAV ===== */
+nav{
+  position:fixed;
+  top:0;left:0;
+  width:100%;
+  background:rgba(15,23,42,.95);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 20px;
+  z-index:1000;
+  backdrop-filter:blur(6px);
+}
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:22px;
+  font-weight:700;
+  color:#38bdf8;
+}
+.logo img{
+  width:38px;height:38px;
+  border-radius:50%;
+  border:2px solid #38bdf8;
+}
+.nav-links{
+  display:flex;
+  gap:20px;
+}
+.nav-links a{
+  color:#fff;
+  text-decoration:none;
+  padding:8px 12px;
+  border-radius:6px;
+}
+.nav-links a:hover{
+  background:#38bdf8;
+  color:#0f172a;
+}
+
+/* ===== EXAM LAYOUT ===== */
+.main{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:120px 20px 40px;
+}
+.card{
+  width:100%;
+  max-width:900px;
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(12px);
+  border-radius:18px;
+  padding:30px;
+  box-shadow:0 25px 50px rgba(0,0,0,.45);
+}
+
+h1{text-align:center;color:#38bdf8;margin-bottom:10px}
+.sub{text-align:center;opacity:.8;margin-bottom:20px}
+
+.question{
+  margin-bottom:20px;
+}
+.question h3{
+  margin-bottom:10px;
+}
+.options label{
+  display:block;
+  background:rgba(0,0,0,.35);
+  padding:10px;
+  border-radius:8px;
+  margin-bottom:8px;
+  cursor:pointer;
+}
+.options input{
+  margin-right:8px;
+}
+
+.btn{
+  width:100%;
+  padding:14px;
+  margin-top:20px;
+  border:none;
+  border-radius:8px;
+  font-size:16px;
+  font-weight:600;
+  background:#38bdf8;
+  color:#0f172a;
+  cursor:pointer;
+}
+.btn:hover{background:#0ea5a4}
+
+.result{
+  text-align:center;
+  font-size:18px;
+  margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="logo">
+    <img src="edu-sports-it.png">
+    <span>EDU SPORTS IT</span>
+  </div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="event.html">Events</a>
+    <a href="profile.html">Profile</a>
+  </div>
+</nav>
+
+<div class="main">
+<div class="card">
+
+<h1>Web Design Certification Exam</h1>
+<p class="sub">Total Questions: 5 | Pass Mark: 60%</p>
+
+<form id="examForm">
+
+<!-- Q1 -->
+<div class="question">
+<h3>1. What does HTML stand for?</h3>
+<div class="options">
+<label><input type="radio" name="q1" value="0"> Hyper Tool Markup Language</label>
+<label><input type="radio" name="q1" value="1"> Hyper Text Markup Language</label>
+<label><input type="radio" name="q1" value="0"> High Text Machine Language</label>
+</div>
+</div>
+
+<!-- Q2 -->
+<div class="question">
+<h3>2. Which tag is used for a line break?</h3>
+<div class="options">
+<label><input type="radio" name="q2" value="1"> &lt;br&gt;</label>
+<label><input type="radio" name="q2" value="0"> &lt;lb&gt;</label>
+<label><input type="radio" name="q2" value="0"> &lt;break&gt;</label>
+</div>
+</div>
+
+<!-- Q3 -->
+<div class="question">
+<h3>3. Which CSS property controls text color?</h3>
+<div class="options">
+<label><input type="radio" name="q3" value="1"> color</label>
+<label><input type="radio" name="q3" value="0"> font-style</label>
+<label><input type="radio" name="q3" value="0"> text-align</label>
+</div>
+</div>
+
+<!-- Q4 -->
+<div class="question">
+<h3>4. Which unit is responsive?</h3>
+<div class="options">
+<label><input type="radio" name="q4" value="0"> px</label>
+<label><input type="radio" name="q4" value="1"> %</label>
+<label><input type="radio" name="q4" value="0"> pt</label>
+</div>
+</div>
+
+<!-- Q5 -->
+<div class="question">
+<h3>5. Which tag is used to link CSS?</h3>
+<div class="options">
+<label><input type="radio" name="q5" value="1"> &lt;link&gt;</label>
+<label><input type="radio" name="q5" value="0"> &lt;style&gt;</label>
+<label><input type="radio" name="q5" value="0"> &lt;css&gt;</label>
+</div>
+</div>
+
+<button type="button" class="btn" onclick="submitExam()">Submit Exam</button>
+
+</form>
+
+<div class="result" id="result"></div>
+
+</div>
+</div>
+
+<script>
+function submitExam(){
+  let score = 0;
+  const total = 5;
+
+  for(let i=1;i<=5;i++){
+    const q = document.querySelector(`input[name="q${i}"]:checked`);
+    if(q) score += Number(q.value);
+  }
+
+  const percent = (score/total)*100;
+  const result = document.getElementById("result");
+
+  if(percent >= 60){
+    result.innerHTML = `✅ Passed!<br>Score: ${percent}%<br>Certificate will be generated.`;
+  }else{
+    result.innerHTML = `❌ Failed<br>Score: ${percent}%<br>Please try again later.`;
+  }
+}
+</script>
+
+</body>
+</html>

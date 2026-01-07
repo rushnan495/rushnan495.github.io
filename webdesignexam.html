@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Project 1 — Portfolio Website</title>
+<title>Project 1 | Portfolio Exam</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+*{box-sizing:border-box}
 body{
   margin:0;
-  font-family:'Segoe UI',sans-serif;
+  font-family:Segoe UI, sans-serif;
   background:#020617;
   color:#fff;
 }
@@ -22,39 +23,56 @@ body{
   width:25%;
   background:#0f172a;
   padding:20px;
+  overflow:auto;
 }
 .left h2{color:#38bdf8}
-.rule{margin:8px 0}
+.rule{font-size:14px;margin:8px 0}
+.good{color:#4ade80}
+.bad{color:#f87171}
 
 /* CENTER */
-.center{
-  width:35%;
-  background:#020617;
-}
+.center{width:35%}
 textarea{
   width:100%;
   height:100%;
+  border:none;
+  outline:none;
   background:#020617;
   color:#e5e7eb;
-  border:none;
   padding:15px;
   font-family:monospace;
   font-size:14px;
 }
 
 /* RIGHT */
-.right{
-  width:40%;
-  background:#fff;
-}
-iframe{
-  width:100%;
-  height:100%;
-  border:none;
-}
+.right{width:40%;background:#fff}
+iframe{width:100%;height:100%;border:none}
 
-.bad{color:#f87171}
-.good{color:#4ade80}
+/* POPUP */
+#popup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.7);
+  display:none;
+  align-items:center;
+  justify-content:center;
+}
+.popup-box{
+  background:#0f172a;
+  padding:30px;
+  border-radius:12px;
+  text-align:center;
+}
+.popup-box h1{color:#4ade80}
+.popup-box button{
+  margin-top:15px;
+  padding:10px 22px;
+  border:none;
+  border-radius:8px;
+  background:#38bdf8;
+  font-weight:600;
+  cursor:pointer;
+}
 </style>
 </head>
 
@@ -64,29 +82,51 @@ iframe{
 
 <!-- INSTRUCTIONS -->
 <div class="left">
-<h2>📘 Project: Portfolio</h2>
+<h2>📘 Project 1: Portfolio</h2>
 
-<div class="rule" id="r1">❌ h1 with your name</div>
-<div class="rule" id="r2">❌ paragraph about you</div>
-<div class="rule" id="r3">❌ button "Contact Me"</div>
-<div class="rule" id="r4">❌ center all content</div>
+<div id="r1" class="rule">❌ h1 with your name</div>
+<div id="r2" class="rule">❌ profile image</div>
+<div id="r3" class="rule">❌ about paragraph</div>
+<div id="r4" class="rule">❌ school / college paragraph</div>
+<div id="r5" class="rule">❌ skills (ul + 3 li)</div>
+<div id="r6" class="rule">❌ Contact Me button</div>
+<div id="r7" class="rule">❌ content centered</div>
+<div id="r8" class="rule">❌ background design</div>
 </div>
 
-<!-- CODE EDITOR -->
+<!-- EDITOR -->
 <div class="center">
 <textarea id="code">
 <!DOCTYPE html>
 <html>
 <head>
+<title>My Portfolio</title>
 <style>
 body{
-  font-family:Arial;
+  text-align:center;
+  background:linear-gradient(135deg,#0ea5a4,#38bdf8);
+  font-family:Segoe UI;
 }
+img{width:150px;border-radius:50%}
+button{padding:10px 20px}
 </style>
 </head>
 <body>
 
-<!-- Your code here -->
+<h1>Your Name</h1>
+<img src="https://via.placeholder.com/150">
+
+<p>About me</p>
+<p>My school or college</p>
+
+<h2>Skills</h2>
+<ul>
+<li>HTML</li>
+<li>CSS</li>
+<li>JavaScript</li>
+</ul>
+
+<button>Contact Me</button>
 
 </body>
 </html>
@@ -100,55 +140,77 @@ body{
 
 </div>
 
+<!-- POPUP -->
+<div id="popup">
+  <div class="popup-box">
+    <h1>🎉 Congratulations!</h1>
+    <p>Project 1 Completed Successfully</p>
+    <button onclick="location.href='projects.html'">Go to Projects</button>
+  </div>
+</div>
+
+<!-- CORE JS -->
 <script>
-const textarea = document.getElementById("code");
-const iframe = document.getElementById("preview");
+const editor=document.getElementById("code");
+const preview=document.getElementById("preview");
 
-function updatePreview(){
-  iframe.srcdoc = textarea.value;
-  runTests();
+function update(){
+  preview.srcdoc=editor.value;
+  setTimeout(test,300);
+}
+editor.addEventListener("input",update);
+update();
+
+function mark(id,ok){
+  const el=document.getElementById(id);
+  el.textContent=(ok?"✔️ ":"❌ ")+el.textContent.slice(2);
+  el.className="rule "+(ok?"good":"bad");
 }
 
-textarea.addEventListener("input", updatePreview);
-updatePreview();
+function test(){
+  const d=preview.contentDocument;
 
-function runTests(){
-  const doc = iframe.contentDocument || iframe.contentWindow.document;
+  mark("r1",d.querySelector("h1"));
+  mark("r2",d.querySelector("img"));
+  mark("r3",d.querySelectorAll("p").length>=1);
+  mark("r4",d.querySelectorAll("p").length>=2);
+  mark("r5",d.querySelectorAll("ul li").length>=3);
+  mark("r6",[...d.querySelectorAll("button")]
+    .some(b=>b.textContent.toLowerCase().includes("contact")));
+  mark("r7",d.body.style.textAlign==="center");
+  mark("r8",d.body.style.background!=="");
 
-  let pass = 0;
-
-  // Test 1: h1
-  const h1 = doc.querySelector("h1");
-  toggle("r1", !!h1);
-
-  // Test 2: p
-  const p = doc.querySelector("p");
-  toggle("r2", !!p);
-
-  // Test 3: button
-  const btn = [...doc.querySelectorAll("button")]
-    .find(b=>b.textContent.toLowerCase().includes("contact"));
-  toggle("r3", !!btn);
-
-  // Test 4: center
-  const bodyStyle = doc.body.style.textAlign === "center";
-  toggle("r4", bodyStyle);
-
-  if(document.querySelectorAll(".good").length === 4){
-    setTimeout(()=>alert("🎉 Congratulations! Project Completed 100%!"),500);
+  if(document.querySelectorAll(".good").length===8){
+    completeProject();
   }
 }
+</script>
 
-function toggle(id, ok){
-  const el = document.getElementById(id);
-  if(ok){
-    el.textContent = el.textContent.replace("❌","✔️");
-    el.className="rule good";
-  }else{
-    el.textContent = el.textContent.replace("✔️","❌");
-    el.className="rule bad";
-  }
-}
+<!-- FIREBASE -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+import { getDatabase, ref, set } from
+"https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
+
+const firebaseConfig={
+  apiKey:"AIzaSyDR5yywOyYjCSnfTyLTcMUIz-hG80jZXU4",
+  databaseURL:"https://edu-sports-it-default-rtdb.firebaseio.com",
+  projectId:"edu-sports-it"
+};
+
+const app=initializeApp(firebaseConfig);
+const db=getDatabase(app);
+const userId="demoUser123";
+
+window.completeProject=function(){
+  set(ref(db,"users/"+userId),{
+    project1:true,
+    project2:true,
+    project3:false
+  }).then(()=>{
+    document.getElementById("popup").style.display="flex";
+  });
+};
 </script>
 
 </body>

@@ -2,33 +2,126 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Projects | EDU SPORTS IT</title>
+<title>EDU SPORTS IT | Projects</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
-body{font-family:'Segoe UI',sans-serif; padding:20px; background:#020617; color:#fff;}
-.project{background:#0f172a; padding:15px; margin-bottom:15px; border-radius:8px;}
-.locked{opacity:0.5;}
-.check{color:#4ade80; font-weight:bold; margin-left:10px;}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Segoe UI, sans-serif;
+  background:linear-gradient(-45deg,#0f172a,#020617,#0ea5a4);
+  background-size:400% 400%;
+  animation:bg 12s ease infinite;
+  color:#fff;
+}
+@keyframes bg{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+nav{
+  position:sticky;
+  top:0;
+  background:rgba(15,23,42,.95);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 25px;
+}
+nav h2{color:#38bdf8}
+nav button{
+  background:#ef4444;
+  border:none;
+  padding:8px 16px;
+  border-radius:6px;
+  color:#fff;
+  cursor:pointer;
+}
+.container{
+  max-width:1000px;
+  margin:50px auto;
+  padding:0 20px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:25px;
+}
+.card{
+  background:#0f172a;
+  padding:25px;
+  border-radius:16px;
+  text-align:center;
+  position:relative;
+  opacity:.45;
+  transition:.3s;
+}
+.card.active{
+  opacity:1;
+  transform:translateY(-4px);
+}
+.card h3{color:#38bdf8;margin:10px 0}
+.card p{font-size:14px;color:#cbd5f5}
+.status{
+  position:absolute;
+  top:15px;
+  right:15px;
+  font-size:22px;
+}
+.card button{
+  margin-top:15px;
+  padding:10px 20px;
+  border:none;
+  border-radius:8px;
+  font-weight:600;
+}
+.start{background:#38bdf8;cursor:pointer}
+.locked{background:#475569;color:#020617;cursor:not-allowed}
+.completed{background:#22c55e;color:#022c22}
 </style>
 </head>
+
 <body>
-<h1>My Projects</h1>
 
-<div id="project1" class="project">
-  <strong>Project 1: Portfolio</strong> <span id="p1status"></span>
+<nav>
+  <h2>📚 Certification Projects</h2>
+  <button onclick="logout()">Logout</button>
+</nav>
+
+<div class="container">
+
+<!-- PROJECT 1 -->
+<div class="card" id="p1">
+  <div class="status" id="s1">🔒</div>
+  <h3>Project 1</h3>
+  <p>Make a Personal Portfolio Website</p>
+  <button id="b1" class="locked">Locked</button>
 </div>
 
-<div id="project2" class="project locked">
-  <strong>Project 2: Online Shopping</strong> <span id="p2status"></span>
+<!-- PROJECT 2 -->
+<div class="card" id="p2">
+  <div class="status" id="s2">🔒</div>
+  <h3>Project 2</h3>
+  <p>Online Shopping Website (3 Products)</p>
+  <button id="b2" class="locked">Locked</button>
 </div>
 
-<div id="project3" class="project locked">
-  <strong>Project 3: Mini Social Media</strong> <span id="p3status"></span>
+<!-- PROJECT 3 -->
+<div class="card" id="p3">
+  <div class="status" id="s3">🔒</div>
+  <h3>Project 3</h3>
+  <p>Mini Social Media Website</p>
+  <button id="b3" class="locked">Locked</button>
 </div>
 
+</div>
+
+<!-- FIREBASE -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
+import { getAuth, onAuthStateChanged, signOut }
+from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+import { getDatabase, ref, get }
+from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
 
 const firebaseConfig={
   apiKey:"AIzaSyDR5yywOyYjCSnfTyLTcMUIz-hG80jZXU4",
@@ -37,31 +130,59 @@ const firebaseConfig={
 };
 
 const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
 const db=getDatabase(app);
-const userId="demoUser123";
 
-const userRef=ref(db,"users/"+userId);
-onValue(userRef,(snapshot)=>{
-  const data=snapshot.val();
-  if(data.project1){
-    document.getElementById("p1status").textContent="✔️ Completed";
-    document.getElementById("project2").classList.remove("locked");
-  } else {
-    document.getElementById("p1status").textContent="❌ Locked";
-  }
-  if(data.project2){
-    document.getElementById("p2status").textContent="✔️ Completed";
-    document.getElementById("project3").classList.remove("locked");
-  } else {
-    document.getElementById("p2status").textContent="❌ Locked";
-  }
-  if(data.project3){
-    document.getElementById("p3status").textContent="✔️ Completed";
-  } else {
-    document.getElementById("p3status").textContent="❌ Locked";
+onAuthStateChanged(auth,user=>{
+  if(!user){
+    location.href="login.html";
+  }else{
+    loadProjects(user.uid);
   }
 });
+
+function loadProjects(uid){
+  get(ref(db,"users/"+uid)).then(snap=>{
+    if(!snap.exists()) return;
+    const d=snap.val();
+
+    // 🔹 Project-1 → webdesignexam.html
+    setProject(1,true,d.project1,"webdesignexam.html");
+
+    // Project-2
+    setProject(2,d.project1,d.project2,"project2.html");
+
+    // Project-3
+    setProject(3,d.project2,d.project3,"project3.html");
+  });
+}
+
+function setProject(n,canOpen,done,link){
+  const card=document.getElementById("p"+n);
+  const btn=document.getElementById("b"+n);
+  const st=document.getElementById("s"+n);
+
+  if(done){
+    card.classList.add("active");
+    st.textContent="✔️";
+    btn.textContent="Completed";
+    btn.className="completed";
+    btn.onclick=()=>location.href=link;
+  }
+  else if(canOpen){
+    card.classList.add("active");
+    st.textContent="▶";
+    btn.textContent="Start Project";
+    btn.className="start";
+    btn.onclick=()=>location.href=link;
+  }
+}
+
+window.logout=function(){
+  signOut(auth).then(()=>location.href="login.html");
+};
 </script>
+
 </body>
 </html>
 

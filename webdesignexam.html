@@ -2,161 +2,78 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<title>Project 1 — Portfolio Website</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EDU SPORTS IT — Web Design Coding Exam</title>
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Segoe UI', sans-serif;
-}
-
-/* ===== HOME BACKGROUND ===== */
 body{
-  background:linear-gradient(-45deg,#0f172a,#1e293b,#0ea5a4,#38bdf8);
-  background-size:400% 400%;
-  animation:gradientMove 10s ease infinite;
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:#020617;
   color:#fff;
-  overflow:hidden;
 }
-@keyframes gradientMove{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
-}
-
-/* ===== NAV ===== */
-nav{
-  position:fixed;
-  top:0;left:0;
-  width:100%;
-  background:rgba(15,23,42,.95);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:14px 20px;
-  z-index:1000;
-}
-.logo{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-size:22px;
-  font-weight:700;
-  color:#38bdf8;
-}
-.logo img{
-  width:38px;height:38px;
-  border-radius:50%;
-  border:2px solid #38bdf8;
-}
-
-/* ===== LAYOUT ===== */
 .main{
   display:flex;
   height:100vh;
-  padding-top:70px;
 }
 
-/* ===== LEFT : INSTRUCTIONS ===== */
-.instructions{
+/* LEFT */
+.left{
   width:25%;
-  background:rgba(15,23,42,.9);
+  background:#0f172a;
   padding:20px;
-  overflow-y:auto;
 }
-.instructions h2{
-  color:#38bdf8;
-  margin-bottom:10px;
-}
-.instructions ul{
-  margin-left:20px;
-  line-height:1.7;
-}
+.left h2{color:#38bdf8}
+.rule{margin:8px 0}
 
-/* ===== CENTER : CODE EDITOR ===== */
-.editor{
+/* CENTER */
+.center{
   width:35%;
   background:#020617;
-  display:flex;
-  flex-direction:column;
 }
-.editor textarea{
-  flex:1;
+textarea{
+  width:100%;
+  height:100%;
   background:#020617;
   color:#e5e7eb;
   border:none;
-  outline:none;
   padding:15px;
   font-family:monospace;
   font-size:14px;
 }
-.editor button{
-  background:#38bdf8;
-  color:#0f172a;
-  border:none;
-  padding:14px;
-  font-size:16px;
-  font-weight:600;
-  cursor:pointer;
-}
 
-/* ===== RIGHT : PREVIEW ===== */
-.preview{
+/* RIGHT */
+.right{
   width:40%;
   background:#fff;
 }
-.preview iframe{
+iframe{
   width:100%;
   height:100%;
   border:none;
 }
 
-/* ===== RESPONSIVE ===== */
-@media(max-width:1000px){
-  .main{flex-direction:column}
-  .instructions,.editor,.preview{width:100%;height:33vh}
-}
+.bad{color:#f87171}
+.good{color:#4ade80}
 </style>
 </head>
 
 <body>
 
-<nav>
-  <div class="logo">
-    <img src="edu-sports-it.png">
-    <span>EDU SPORTS IT</span>
-  </div>
-</nav>
-
 <div class="main">
 
-<!-- ===== INSTRUCTIONS ===== -->
-<div class="instructions">
-  <h2>📘 Instructions</h2>
-  <p>Create a simple landing page.</p>
+<!-- INSTRUCTIONS -->
+<div class="left">
+<h2>📘 Project: Portfolio</h2>
 
-  <h2>📌 User Stories</h2>
-  <ul>
-    <li>Use an <b>h1</b> heading with text "Welcome to Edu Sports IT"</li>
-    <li>Add a paragraph below the heading</li>
-    <li>Use a button with text "Get Started"</li>
-    <li>Center all content</li>
-    <li>Use CSS for styling</li>
-  </ul>
-
-  <h2>⚠ Rules</h2>
-  <ul>
-    <li>No external libraries</li>
-    <li>Only HTML & CSS allowed</li>
-    <li>Auto preview updates</li>
-  </ul>
+<div class="rule" id="r1">❌ h1 with your name</div>
+<div class="rule" id="r2">❌ paragraph about you</div>
+<div class="rule" id="r3">❌ button "Contact Me"</div>
+<div class="rule" id="r4">❌ center all content</div>
 </div>
 
-<!-- ===== CODE EDITOR ===== -->
-<div class="editor">
+<!-- CODE EDITOR -->
+<div class="center">
 <textarea id="code">
 <!DOCTYPE html>
 <html>
@@ -164,40 +81,74 @@ nav{
 <style>
 body{
   font-family:Arial;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
 }
 </style>
 </head>
 <body>
 
-<!-- Write your code here -->
+<!-- Your code here -->
 
 </body>
 </html>
 </textarea>
-
-<button onclick="runCode()">Run Code</button>
 </div>
 
-<!-- ===== LIVE PREVIEW ===== -->
-<div class="preview">
-  <iframe id="preview"></iframe>
+<!-- PREVIEW -->
+<div class="right">
+<iframe id="preview"></iframe>
 </div>
 
 </div>
 
 <script>
-function runCode(){
-  const code = document.getElementById("code").value;
-  const iframe = document.getElementById("preview");
-  iframe.srcdoc = code;
+const textarea = document.getElementById("code");
+const iframe = document.getElementById("preview");
+
+function updatePreview(){
+  iframe.srcdoc = textarea.value;
+  runTests();
 }
 
-// auto run
-runCode();
+textarea.addEventListener("input", updatePreview);
+updatePreview();
+
+function runTests(){
+  const doc = iframe.contentDocument || iframe.contentWindow.document;
+
+  let pass = 0;
+
+  // Test 1: h1
+  const h1 = doc.querySelector("h1");
+  toggle("r1", !!h1);
+
+  // Test 2: p
+  const p = doc.querySelector("p");
+  toggle("r2", !!p);
+
+  // Test 3: button
+  const btn = [...doc.querySelectorAll("button")]
+    .find(b=>b.textContent.toLowerCase().includes("contact"));
+  toggle("r3", !!btn);
+
+  // Test 4: center
+  const bodyStyle = doc.body.style.textAlign === "center";
+  toggle("r4", bodyStyle);
+
+  if(document.querySelectorAll(".good").length === 4){
+    setTimeout(()=>alert("🎉 Congratulations! Project Completed 100%!"),500);
+  }
+}
+
+function toggle(id, ok){
+  const el = document.getElementById(id);
+  if(ok){
+    el.textContent = el.textContent.replace("❌","✔️");
+    el.className="rule good";
+  }else{
+    el.textContent = el.textContent.replace("✔️","❌");
+    el.className="rule bad";
+  }
+}
 </script>
 
 </body>

@@ -2,85 +2,189 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>EDU SPORTS IT — Projects</title>
+<title>EDU SPORTS IT | Projects</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+*{box-sizing:border-box}
 body{
   margin:0;
-  font-family:'Segoe UI',sans-serif;
-  background:linear-gradient(-45deg,#0f172a,#1e293b,#0ea5a4,#38bdf8);
+  font-family:Segoe UI, sans-serif;
+  background:linear-gradient(-45deg,#0f172a,#020617,#0ea5a4);
   background-size:400% 400%;
-  animation:move 10s ease infinite;
+  animation:bg 12s ease infinite;
   color:#fff;
 }
-@keyframes move{
+@keyframes bg{
   0%{background-position:0% 50%}
   50%{background-position:100% 50%}
   100%{background-position:0% 50%}
 }
 
-.container{
-  padding:120px 20px;
-  max-width:1100px;
-  margin:auto;
+/* NAV */
+nav{
+  position:sticky;
+  top:0;
+  background:rgba(15,23,42,.95);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 25px;
 }
-h1{text-align:center;color:#38bdf8;margin-bottom:40px}
+nav h2{color:#38bdf8}
+nav button{
+  background:#ef4444;
+  border:none;
+  padding:8px 16px;
+  border-radius:6px;
+  color:#fff;
+  cursor:pointer;
+}
 
-.projects{
+/* PROJECT GRID */
+.container{
+  max-width:1000px;
+  margin:50px auto;
+  padding:0 20px;
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   gap:25px;
 }
 
 .card{
-  background:rgba(255,255,255,.08);
+  background:#0f172a;
   padding:25px;
   border-radius:16px;
-  backdrop-filter:blur(10px);
-  box-shadow:0 20px 40px rgba(0,0,0,.4);
+  text-align:center;
+  position:relative;
+  opacity:.45;
+  transition:.3s;
 }
-.card h2{color:#38bdf8}
-.card p{opacity:.85}
+.card.active{
+  opacity:1;
+  transform:translateY(-4px);
+}
+.card h3{color:#38bdf8;margin:10px 0}
+.card p{font-size:14px;color:#cbd5f5}
+
+.status{
+  position:absolute;
+  top:15px;
+  right:15px;
+  font-size:22px;
+}
+
 .card button{
   margin-top:15px;
-  width:100%;
-  padding:12px;
+  padding:10px 20px;
   border:none;
   border-radius:8px;
   font-weight:600;
-  background:#38bdf8;
-  color:#0f172a;
-  cursor:pointer;
 }
+.start{background:#38bdf8;cursor:pointer}
+.locked{background:#475569;color:#020617;cursor:not-allowed}
+.completed{background:#22c55e;color:#022c22}
 </style>
 </head>
 
 <body>
+
+<nav>
+  <h2>📚 Certification Projects</h2>
+  <button onclick="logout()">Logout</button>
+</nav>
+
 <div class="container">
-<h1>🎯 Certification Projects</h1>
 
-<div class="projects">
-
-<div class="card">
-<h2>Project 1: Portfolio Website</h2>
-<p>Create your personal portfolio website using HTML & CSS.</p>
-<button onclick="location.href='webdesignexam.html'">Start Project</button>
+<!-- PROJECT 1 -->
+<div class="card" id="p1">
+  <div class="status" id="s1">🔒</div>
+  <h3>Project 1</h3>
+  <p>Make a Personal Portfolio Website</p>
+  <button id="b1" class="locked">Locked</button>
 </div>
 
-<div class="card">
-<h2>Project 2: Online Shopping Website</h2>
-<p>Build a shop page with 3 sample products.</p>
-<button disabled>Locked</button>
+<!-- PROJECT 2 -->
+<div class="card" id="p2">
+  <div class="status" id="s2">🔒</div>
+  <h3>Project 2</h3>
+  <p>Online Shopping Website (3 Products)</p>
+  <button id="b2" class="locked">Locked</button>
 </div>
 
-<div class="card">
-<h2>Project 3: Mini Social Media</h2>
-<p>Create a simple social feed layout.</p>
-<button disabled>Locked</button>
+<!-- PROJECT 3 -->
+<div class="card" id="p3">
+  <div class="status" id="s3">🔒</div>
+  <h3>Project 3</h3>
+  <p>Mini Social Media Website</p>
+  <button id="b3" class="locked">Locked</button>
 </div>
 
 </div>
-</div>
+
+<!-- FIREBASE -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut }
+from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+import { getDatabase, ref, get }
+from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
+
+const firebaseConfig={
+  apiKey:"AIzaSyDR5yywOyYjCSnfTyLTcMUIz-hG80jZXU4",
+  databaseURL:"https://edu-sports-it-default-rtdb.firebaseio.com",
+  projectId:"edu-sports-it"
+};
+
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getDatabase(app);
+
+onAuthStateChanged(auth,user=>{
+  if(!user){
+    location.href="login.html";
+  }else{
+    loadProjects(user.uid);
+  }
+});
+
+function loadProjects(uid){
+  get(ref(db,"users/"+uid)).then(snap=>{
+    if(!snap.exists()) return;
+    const d=snap.val();
+
+    setProject(1,true,d.project1);
+    setProject(2,d.project1,d.project2);
+    setProject(3,d.project2,d.project3);
+  });
+}
+
+function setProject(n,canOpen,done){
+  const card=document.getElementById("p"+n);
+  const btn=document.getElementById("b"+n);
+  const st=document.getElementById("s"+n);
+
+  if(done){
+    card.classList.add("active");
+    st.textContent="✔️";
+    btn.textContent="Completed";
+    btn.className="completed";
+    btn.onclick=()=>location.href="project"+n+".html";
+  }
+  else if(canOpen){
+    card.classList.add("active");
+    st.textContent="▶";
+    btn.textContent="Start Project";
+    btn.className="start";
+    btn.onclick=()=>location.href="project"+n+".html";
+  }
+}
+
+window.logout=function(){
+  signOut(auth).then(()=>location.href="login.html");
+};
+</script>
+
 </body>
 </html>
+

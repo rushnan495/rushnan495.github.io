@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EDU SPORTS IT — Web Design Exam</title>
+<title>EDU SPORTS IT — Web Design Coding Exam</title>
 
 <style>
 *{
@@ -13,12 +13,13 @@
   font-family:'Segoe UI', sans-serif;
 }
 
-/* ===== BACKGROUND (HOME STYLE) ===== */
+/* ===== HOME BACKGROUND ===== */
 body{
   background:linear-gradient(-45deg,#0f172a,#1e293b,#0ea5a4,#38bdf8);
   background-size:400% 400%;
   animation:gradientMove 10s ease infinite;
   color:#fff;
+  overflow:hidden;
 }
 @keyframes gradientMove{
   0%{background-position:0% 50%}
@@ -37,7 +38,6 @@ nav{
   align-items:center;
   padding:14px 20px;
   z-index:1000;
-  backdrop-filter:blur(6px);
 }
 .logo{
   display:flex;
@@ -52,78 +52,72 @@ nav{
   border-radius:50%;
   border:2px solid #38bdf8;
 }
-.nav-links{
-  display:flex;
-  gap:20px;
-}
-.nav-links a{
-  color:#fff;
-  text-decoration:none;
-  padding:8px 12px;
-  border-radius:6px;
-}
-.nav-links a:hover{
-  background:#38bdf8;
-  color:#0f172a;
-}
 
-/* ===== EXAM LAYOUT ===== */
+/* ===== LAYOUT ===== */
 .main{
-  min-height:100vh;
   display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:120px 20px 40px;
-}
-.card{
-  width:100%;
-  max-width:900px;
-  background:rgba(255,255,255,0.08);
-  backdrop-filter:blur(12px);
-  border-radius:18px;
-  padding:30px;
-  box-shadow:0 25px 50px rgba(0,0,0,.45);
+  height:100vh;
+  padding-top:70px;
 }
 
-h1{text-align:center;color:#38bdf8;margin-bottom:10px}
-.sub{text-align:center;opacity:.8;margin-bottom:20px}
-
-.question{
-  margin-bottom:20px;
+/* ===== LEFT : INSTRUCTIONS ===== */
+.instructions{
+  width:25%;
+  background:rgba(15,23,42,.9);
+  padding:20px;
+  overflow-y:auto;
 }
-.question h3{
+.instructions h2{
+  color:#38bdf8;
   margin-bottom:10px;
 }
-.options label{
-  display:block;
-  background:rgba(0,0,0,.35);
-  padding:10px;
-  border-radius:8px;
-  margin-bottom:8px;
-  cursor:pointer;
-}
-.options input{
-  margin-right:8px;
+.instructions ul{
+  margin-left:20px;
+  line-height:1.7;
 }
 
-.btn{
-  width:100%;
-  padding:14px;
-  margin-top:20px;
+/* ===== CENTER : CODE EDITOR ===== */
+.editor{
+  width:35%;
+  background:#020617;
+  display:flex;
+  flex-direction:column;
+}
+.editor textarea{
+  flex:1;
+  background:#020617;
+  color:#e5e7eb;
   border:none;
-  border-radius:8px;
-  font-size:16px;
-  font-weight:600;
+  outline:none;
+  padding:15px;
+  font-family:monospace;
+  font-size:14px;
+}
+.editor button{
   background:#38bdf8;
   color:#0f172a;
+  border:none;
+  padding:14px;
+  font-size:16px;
+  font-weight:600;
   cursor:pointer;
 }
-.btn:hover{background:#0ea5a4}
 
-.result{
-  text-align:center;
-  font-size:18px;
-  margin-top:20px;
+/* ===== RIGHT : PREVIEW ===== */
+.preview{
+  width:40%;
+  background:#fff;
+}
+.preview iframe{
+  width:100%;
+  height:100%;
+  border:none;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1000px){
+  .main{flex-direction:column}
+  .instructions,.editor,.preview{width:100%;height:33vh}
 }
 </style>
 </head>
@@ -135,100 +129,77 @@ h1{text-align:center;color:#38bdf8;margin-bottom:10px}
     <img src="edu-sports-it.png">
     <span>EDU SPORTS IT</span>
   </div>
-  <div class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="event.html">Events</a>
-    <a href="profile.html">Profile</a>
-  </div>
 </nav>
 
 <div class="main">
-<div class="card">
 
-<h1>Web Design Certification Exam</h1>
-<p class="sub">Total Questions: 5 | Pass Mark: 60%</p>
+<!-- ===== INSTRUCTIONS ===== -->
+<div class="instructions">
+  <h2>📘 Instructions</h2>
+  <p>Create a simple landing page.</p>
 
-<form id="examForm">
+  <h2>📌 User Stories</h2>
+  <ul>
+    <li>Use an <b>h1</b> heading with text "Welcome to Edu Sports IT"</li>
+    <li>Add a paragraph below the heading</li>
+    <li>Use a button with text "Get Started"</li>
+    <li>Center all content</li>
+    <li>Use CSS for styling</li>
+  </ul>
 
-<!-- Q1 -->
-<div class="question">
-<h3>1. What does HTML stand for?</h3>
-<div class="options">
-<label><input type="radio" name="q1" value="0"> Hyper Tool Markup Language</label>
-<label><input type="radio" name="q1" value="1"> Hyper Text Markup Language</label>
-<label><input type="radio" name="q1" value="0"> High Text Machine Language</label>
-</div>
-</div>
-
-<!-- Q2 -->
-<div class="question">
-<h3>2. Which tag is used for a line break?</h3>
-<div class="options">
-<label><input type="radio" name="q2" value="1"> &lt;br&gt;</label>
-<label><input type="radio" name="q2" value="0"> &lt;lb&gt;</label>
-<label><input type="radio" name="q2" value="0"> &lt;break&gt;</label>
-</div>
+  <h2>⚠ Rules</h2>
+  <ul>
+    <li>No external libraries</li>
+    <li>Only HTML & CSS allowed</li>
+    <li>Auto preview updates</li>
+  </ul>
 </div>
 
-<!-- Q3 -->
-<div class="question">
-<h3>3. Which CSS property controls text color?</h3>
-<div class="options">
-<label><input type="radio" name="q3" value="1"> color</label>
-<label><input type="radio" name="q3" value="0"> font-style</label>
-<label><input type="radio" name="q3" value="0"> text-align</label>
-</div>
+<!-- ===== CODE EDITOR ===== -->
+<div class="editor">
+<textarea id="code">
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body{
+  font-family:Arial;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+</style>
+</head>
+<body>
+
+<!-- Write your code here -->
+
+</body>
+</html>
+</textarea>
+
+<button onclick="runCode()">Run Code</button>
 </div>
 
-<!-- Q4 -->
-<div class="question">
-<h3>4. Which unit is responsive?</h3>
-<div class="options">
-<label><input type="radio" name="q4" value="0"> px</label>
-<label><input type="radio" name="q4" value="1"> %</label>
-<label><input type="radio" name="q4" value="0"> pt</label>
-</div>
+<!-- ===== LIVE PREVIEW ===== -->
+<div class="preview">
+  <iframe id="preview"></iframe>
 </div>
 
-<!-- Q5 -->
-<div class="question">
-<h3>5. Which tag is used to link CSS?</h3>
-<div class="options">
-<label><input type="radio" name="q5" value="1"> &lt;link&gt;</label>
-<label><input type="radio" name="q5" value="0"> &lt;style&gt;</label>
-<label><input type="radio" name="q5" value="0"> &lt;css&gt;</label>
-</div>
-</div>
-
-<button type="button" class="btn" onclick="submitExam()">Submit Exam</button>
-
-</form>
-
-<div class="result" id="result"></div>
-
-</div>
 </div>
 
 <script>
-function submitExam(){
-  let score = 0;
-  const total = 5;
-
-  for(let i=1;i<=5;i++){
-    const q = document.querySelector(`input[name="q${i}"]:checked`);
-    if(q) score += Number(q.value);
-  }
-
-  const percent = (score/total)*100;
-  const result = document.getElementById("result");
-
-  if(percent >= 60){
-    result.innerHTML = `✅ Passed!<br>Score: ${percent}%<br>Certificate will be generated.`;
-  }else{
-    result.innerHTML = `❌ Failed<br>Score: ${percent}%<br>Please try again later.`;
-  }
+function runCode(){
+  const code = document.getElementById("code").value;
+  const iframe = document.getElementById("preview");
+  iframe.srcdoc = code;
 }
+
+// auto run
+runCode();
 </script>
 
 </body>
 </html>
+

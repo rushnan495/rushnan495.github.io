@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>EDU SPORTS IT — Projects</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:linear-gradient(-45deg,#0f172a,#1e293b,#0ea5a4,#38bdf8);
+  background-size:400% 400%;
+  animation:move 10s ease infinite;
+  color:#fff;
+}
+@keyframes move{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+.container{
+  padding:120px 20px;
+  max-width:1100px;
+  margin:auto;
+}
+h1{text-align:center;color:#38bdf8;margin-bottom:40px}
+
+.projects{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:25px;
+}
+
+.card{
+  background:rgba(255,255,255,.08);
+  padding:25px;
+  border-radius:16px;
+  backdrop-filter:blur(10px);
+  box-shadow:0 20px 40px rgba(0,0,0,.4);
+}
+.card h2{color:#38bdf8}
+.card p{opacity:.85}
+.card button{
+  margin-top:15px;
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:8px;
+  font-weight:600;
+  background:#38bdf8;
+  color:#0f172a;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+<h1>🎯 Certification Projects</h1>
+
+<div class="projects">
+
+<div class="card">
+<h2>Project 1: Portfolio Website</h2>
+<p>Create your personal portfolio website using HTML & CSS.</p>
+<button onclick="location.href='project-portfolio.html'">Start Project</button>
+</div>
+
+<div class="card">
+<h2>Project 2: Online Shopping Website</h2>
+<p>Build a shop page with 3 sample products.</p>
+<button disabled>Locked</button>
+</div>
+
+<div class="card">
+<h2>Project 3: Mini Social Media</h2>
+<p>Create a simple social feed layout.</p>
+<button disabled>Locked</button>
+</div>
+
+</div>
+</div>
+</body>
+</html>

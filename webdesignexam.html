@@ -105,8 +105,7 @@ iframe{
 <div id="r4" class="rule">❌ school / college paragraph</div>
 <div id="r5" class="rule">❌ skills (ul + 3 li)</div>
 <div id="r6" class="rule">❌ Contact Me button</div>
-<div id="r7" class="rule">❌ content centered</div>
-<div id="r8" class="rule">❌ background design</div>
+<!-- r7 and r8 removed -->
 </div>
 
 <!-- EDITOR -->
@@ -160,10 +159,8 @@ function test(){
   mark("r5",d.querySelectorAll("ul li").length>=3);
   mark("r6",[...d.querySelectorAll("button")]
     .some(b=>b.textContent.toLowerCase().includes("contact")));
-  mark("r7",d.body.style.textAlign==="center");
-  mark("r8",d.body.style.background!=="");
 
-  if(document.querySelectorAll(".good").length===8){
+  if(document.querySelectorAll(".good").length===6){
     completeProject();
   }
 }

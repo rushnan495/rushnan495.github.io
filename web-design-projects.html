@@ -20,8 +20,6 @@ body{
   50%{background-position:100% 50%}
   100%{background-position:0% 50%}
 }
-
-/* NAV */
 nav{
   position:sticky;
   top:0;
@@ -40,8 +38,6 @@ nav button{
   color:#fff;
   cursor:pointer;
 }
-
-/* PROJECT GRID */
 .container{
   max-width:1000px;
   margin:50px auto;
@@ -50,7 +46,6 @@ nav button{
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   gap:25px;
 }
-
 .card{
   background:#0f172a;
   padding:25px;
@@ -66,14 +61,12 @@ nav button{
 }
 .card h3{color:#38bdf8;margin:10px 0}
 .card p{font-size:14px;color:#cbd5f5}
-
 .status{
   position:absolute;
   top:15px;
   right:15px;
   font-size:22px;
 }
-
 .card button{
   margin-top:15px;
   padding:10px 20px;
@@ -101,7 +94,7 @@ nav button{
   <div class="status" id="s1">🔒</div>
   <h3>Project 1</h3>
   <p>Make a Personal Portfolio Website</p>
-  <button id="b1" class="locked" onclick="location.href='webdesignexam.html'" >Locked</button>
+  <button id="b1" class="locked">Locked</button>
 </div>
 
 <!-- PROJECT 2 -->
@@ -153,13 +146,18 @@ function loadProjects(uid){
     if(!snap.exists()) return;
     const d=snap.val();
 
-    setProject(1,true,d.project1);
-    setProject(2,d.project1,d.project2);
-    setProject(3,d.project2,d.project3);
+    // 🔹 Project-1 → webdesignexam.html
+    setProject(1,true,d.project1,"webdesignexam.html");
+
+    // Project-2
+    setProject(2,d.project1,d.project2,"project2.html");
+
+    // Project-3
+    setProject(3,d.project2,d.project3,"project3.html");
   });
 }
 
-function setProject(n,canOpen,done){
+function setProject(n,canOpen,done,link){
   const card=document.getElementById("p"+n);
   const btn=document.getElementById("b"+n);
   const st=document.getElementById("s"+n);
@@ -169,14 +167,14 @@ function setProject(n,canOpen,done){
     st.textContent="✔️";
     btn.textContent="Completed";
     btn.className="completed";
-    btn.onclick=()=>location.href="project"+n+".html";
+    btn.onclick=()=>location.href=link;
   }
   else if(canOpen){
     card.classList.add("active");
     st.textContent="▶";
     btn.textContent="Start Project";
     btn.className="start";
-    btn.onclick=()=>location.href="project"+n+".html";
+    btn.onclick=()=>location.href=link;
   }
 }
 
@@ -187,4 +185,5 @@ window.logout=function(){
 
 </body>
 </html>
+
 
